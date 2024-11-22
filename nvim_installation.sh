@@ -14,25 +14,39 @@ echo "Setting up Neovim with your dotfiles..."
 # Step 1: Check and install Neovim if not present
 if ! command -v nvim &> /dev/null; then
     echo "Neovim not found. Installing..."
-    if [[ -f /etc/os-release ]]; then
-        . /etc/os-release
-        case "$ID" in
-            ubuntu|debian)
-                sudo apt update && sudo apt install -y neovim
-                ;;
-            fedora|centos|rhel)
-                sudo dnf install -y neovim
-                ;;
-            arch|manjaro)
-                sudo pacman -S --noconfirm neovim
-                ;;
-            *)
-                echo "Unsupported distribution. Please install Neovim manually."
-                exit 1
-                ;;
-        esac
+    if [[ "$OSTYPE" == "linux-gnu"* ]]; then
+        # Linux installation
+        if [[ -f /etc/os-release ]]; then
+            . /etc/os-release
+            case "$ID" in
+                ubuntu|debian)
+                    sudo apt update && sudo apt install -y neovim
+                    ;;
+                fedora|centos|rhel)
+                    sudo dnf install -y neovim
+                    ;;
+                arch|manjaro)
+                    sudo pacman -S --noconfirm neovim
+                    ;;
+                *)
+                    echo "Unsupported Linux distribution. Please install Neovim manually."
+                    exit 1
+                    ;;
+            esac
+        else
+            echo "Unable to detect your operating system. Please install Neovim manually."
+            exit 1
+        fi
+    elif [[ "$OSTYPE" == "darwin"* ]]; then
+        # macOS installation
+        if ! command -v brew &> /dev/null; then
+            echo "Homebrew not found. Installing Homebrew..."
+            /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        fi
+        echo "Installing Neovim with Homebrew..."
+        brew install neovim
     else
-        echo "Unable to detect your operating system. Please install Neovim manually."
+        echo "Unsupported operating system. Please install Neovim manually."
         exit 1
     fi
 else
