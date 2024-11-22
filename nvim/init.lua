@@ -16,7 +16,7 @@ vim.g.have_nerd_font = true
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
 --  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Enable mouse mode, can be useful for resizing splits for example!
 vim.opt.mouse = 'a'
@@ -72,6 +72,53 @@ vim.opt.cursorline = true
 vim.opt.scrolloff = 10
 
 require 'keybinds'
+
+--#region runPrograms
+local job = nil
+
+vim.api.nvim_create_user_command('RunJavascript', function()
+  -- Check if a job is already running
+  if job then
+    vim.print 'A JavaScript process is already running.'
+    return
+  end
+
+  -- Start the npm dev process
+  job = vim.system({ 'npm', 'run', 'start' }, {}, function(out)
+    if out.code == 0 then
+      vim.print 'JavaScript process completed successfully.'
+    else
+      vim.print('JavaScript process ended with code:', out.code)
+    end
+    -- Clear the job after completion
+  end)
+
+  -- Notify the user that the process has started
+  vim.print 'JavaScript development server started.'
+end, {})
+
+vim.api.nvim_create_user_command('StopJavascript', function()
+  if job then
+    job:kill(9) -- Sends SIGTERM to gracefully stop the job
+    os.execute('kill -9 ' .. job:pid()) -- Kills the process with signal 9 (SIGKILL)
+    vim.print 'Process killed using shell command.'
+    print 'Job stopped'
+    job = nil
+  else
+    print 'No active job to stop'
+  end
+end, {})
+
+-- vim.api.nvim_create_autocmd({ 'VimLeavePre' }, {
+--   callbak = function()
+--     job:kill(9)
+--   end,
+-- })
+
+vim.keymap.set('n', '<leader>rjj', ':RunJavascript<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<leader>rjs', ':StopJavascript<CR>', { noremap = true, silent = true })
+--#endregion
+
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
 

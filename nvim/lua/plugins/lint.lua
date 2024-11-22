@@ -16,7 +16,7 @@ return {
         ruby = { 'ruby' },
         terraform = { 'tflint' },
         text = { 'vale' },
-        javascript = { 'eslint_d' },
+        javascript = {},
         typescript = { 'eslint_d' },
         javascriptreact = { 'eslint_d' },
         typescriptreact = { 'eslint_d' },

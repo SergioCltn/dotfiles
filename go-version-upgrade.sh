@@ -24,6 +24,7 @@ install_go() {
     echo "Downloading https://go.dev/dl/$release_file ..."
     curl -OL "https://go.dev/dl/$release_file"
 
+    ## TODO: Add path to go installation and handle different versions
     sudo rm -rf /usr/local/go || true
     sudo tar -C /usr/local -xzf "$release_file"
     ln -sf "/usr/local/$release" "/usr/local/go"
@@ -41,6 +42,7 @@ fi
 
 OS=$(uname)
 release_file=""
+## This install_dir is for when the path of go is not the default
 install_dir="${HOME}/apps"
 
 if [[ "$OS" == "Linux" ]]; then
@@ -48,7 +50,7 @@ if [[ "$OS" == "Linux" ]]; then
     release_file="${release}.linux-amd64.tar.gz"
 elif [[ "$OS" == "Darwin" ]]; then
     echo "You are using macOS."
-    release_file="${release}.darwin-amd64.tar.gz"
+    release_file="${release}.darwin-arm64.tar.gz"
 else
     echo "Unknown operating system: $OS"
     exit 1
