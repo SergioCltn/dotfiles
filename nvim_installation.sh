@@ -4,7 +4,7 @@
 set -e
 
 # Variables
-DOTFILES_REPO="https://github.com/yourusername/dotfiles.git"
+DOTFILES_REPO="https://github.com/sergiocltn/dotfiles.git"
 CONFIG_DIR="$HOME/.config/nvim"
 BACKUP_DIR="$HOME/.config/nvim_backup"
 CLONE_DIR="$HOME/dotfiles"
