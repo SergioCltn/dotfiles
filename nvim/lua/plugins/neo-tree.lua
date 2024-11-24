@@ -1,6 +1,9 @@
 -- Neo-tree is a Neovim plugin to browse the file system
 -- https://github.com/nvim-neo-tree/neo-tree.nvim
 
+-- Neo-tree is a Neovim plugin to browse the file system
+-- https://github.com/nvim-neo-tree/neo-tree.nvim
+
 return {
   'nvim-neo-tree/neo-tree.nvim',
   version = '*',
@@ -110,21 +113,21 @@ return {
           use_git_status_colors = true,
           highlight = 'NeoTreeFileName',
         },
-        git_status = {
-          symbols = {
-            -- Change type
-            added = '', -- or "✚", but this is redundant info if you use git_status_colors on the name
-            modified = '', -- or "", but this is redundant info if you use git_status_colors on the name
-            deleted = '✖', -- this can only be used in the git_status source
-            renamed = '󰁕', -- this can only be used in the git_status source
-            -- Status type
-            untracked = '',
-            ignored = '',
-            unstaged = '󰄱',
-            staged = '',
-            conflict = '',
-          },
-        },
+        -- git_status = {
+        --   symbols = {
+        --     -- Change type
+        --     added = '', -- or "✚", but this is redundant info if you use git_status_colors on the name
+        --     modified = '', -- or "", but this is redundant info if you use git_status_colors on the name
+        --     deleted = '✖', -- this can only be used in the git_status source
+        --     renamed = '󰁕', -- this can only be used in the git_status source
+        --     -- Status type
+        --     untracked = '',
+        --     ignored = '',
+        --     unstaged = '󰄱',
+        --     staged = '',
+        --     conflict = '',
+        --   },
+        -- },
         file_size = {
           enabled = true,
           required_width = 64, -- min width of window required to show this column

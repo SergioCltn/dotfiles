@@ -1,3 +1,11 @@
+-- return {
+--   'AlexvZyl/nordic.nvim',
+--   lazy = false,
+--   priority = 1000,
+--   config = function()
+--     require('nord').load()
+--   end,
+-- }
 return {
   'folke/tokyonight.nvim',
   priority = 1000,
