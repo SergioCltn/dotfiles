@@ -98,6 +98,10 @@ vim.g.have_nerd_font = false
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
 
+-- Move lines in visual mode
+vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -656,6 +660,12 @@ require('lazy').setup({
             -- print(vim.inspect(client))
             client.server_capabilities.documentFormattingProvider = false
           end,
+          -- init_options disable suggestions in js with esmodules
+          init_options = {
+            preferences = {
+              disableSuggestions = true,
+            },
+          },
         },
         --
 
