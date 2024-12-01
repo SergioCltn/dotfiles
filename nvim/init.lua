@@ -653,7 +653,21 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`ts_ls`) will work just fine
-        eslint = {},
+        eslint = {
+          -- on_attach = function(client, bufnr)
+          --   client.server_capabilities.documentFormattingProvider = true
+          --   if client.server_capabilities.documentFormattingProvider then
+          --     local au_lsp = vim.api.nvim_create_augroup('eslint_lsp', { clear = true })
+          --     vim.api.nvim_create_autocmd('BufWritePre', {
+          --       pattern = '*',
+          --       callback = function()
+          --         vim.lsp.buf.format { async = true }
+          --       end,
+          --       group = au_lsp,
+          --     })
+          --   end
+          -- end,
+        },
 
         ts_ls = {
           on_attach = function(client)
@@ -661,11 +675,11 @@ require('lazy').setup({
             client.server_capabilities.documentFormattingProvider = false
           end,
           -- init_options disable suggestions in js with esmodules
-          init_options = {
-            preferences = {
-              disableSuggestions = true,
-            },
-          },
+          -- init_options = {
+          --   preferences = {
+          --     disableSuggestions = true,
+          --   },
+          -- },
         },
         --
 
@@ -763,6 +777,14 @@ require('lazy').setup({
       local cmp = require 'cmp'
       local luasnip = require 'luasnip'
       luasnip.config.setup {}
+
+      -- add words that are already in the buffer for the autocompletion
+      cmp.setup.filetype({ 'sql' }, {
+        sources = {
+          { name = 'vim-dadbod-completion' },
+          { name = 'buffer' },
+        },
+      })
 
       cmp.setup {
         snippet = {
@@ -905,6 +927,7 @@ require('lazy').setup({
         'query',
         'vimdoc',
         'c',
+        'sql',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
@@ -947,6 +970,7 @@ require('lazy').setup({
   require 'plugins.auto-session',
   require 'plugins.lazygit',
   require 'plugins.lua-line',
+  require 'plugins.dadbod',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
