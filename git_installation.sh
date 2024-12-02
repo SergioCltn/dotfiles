@@ -9,7 +9,6 @@ install_git() {
     echo "Checking if git is installed..."
     if ! command -v git &>/dev/null; then
         echo "Git is not installed. Installing..."
-        
         # Detect the package manager and install git
         if [ -x "$(command -v apt)" ]; then
             sudo apt update && sudo apt install -y git
@@ -32,7 +31,7 @@ install_git() {
 create_symlink() {
     local src=$1
     local dest=$2
-    
+
     if [ -e "$dest" ] || [ -L "$dest" ]; then
         echo "Skipping $dest: File or symlink already exists."
     else

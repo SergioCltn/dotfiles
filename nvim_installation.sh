@@ -11,6 +11,9 @@ CLONE_DIR="$HOME/dotfiles"
 
 echo "Setting up Neovim with your dotfiles..."
 
+# Step 0: Ensure the .config directory if it doesn't exists
+mkdir -p "$HOME/.config"
+
 # Step 1: Check and install Neovim if not present
 if ! command -v nvim &> /dev/null; then
     echo "Neovim not found. Installing..."
