@@ -8,8 +8,7 @@
   st = status
   rh = reset HEAD
   rhh = reset --hard HEAD
-  pu = pull
-  up = push
+  staash = stash --include-untracked
 
   undo = reset --soft HEAD~1
 
