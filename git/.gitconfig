@@ -1,11 +1,9 @@
 [user]
-  name = ## username 
-  email = ## email
+  name = SergioCltn
+  email = sgs98xd@gmail.com
 
 # Taken from here: https://registerspill.thorstenball.com/p/how-i-use-git
 [alias]
-  co = checkout
-  st = status
   rh = reset HEAD
   rhh = reset --hard HEAD
   staash = stash --include-untracked
