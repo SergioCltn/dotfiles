@@ -1,6 +1,28 @@
 #!/usr/bin/env bash
 # DEV_ENV_HOME=~/dotfiles # this one is for copying the config files and folders 
 
+usage() {
+    echo "Usage: $(basename "$0") [OPTIONS]"
+    echo ""
+    echo "This script sets up your development environment by copying configuration files"
+    echo "and directories from DEV_ENV_HOME to the appropriate locations."
+    echo ""
+    echo "Options:"
+    echo "  --dry          Enable dry run mode (only logs actions without executing them)."
+    echo "  --help         Show this help message and exit."
+    echo ""
+    echo "Environment Variables:"
+    echo "  DEV_ENV_HOME   Path to the directory containing configuration files."
+}
+
+while [[ $# > 0 ]]; do
+    if [[ "$1" == "--help" ]]; then
+        usage
+        exit 0
+    fi
+    shift
+done
+
 if [ -z "$DEV_ENV_HOME" ]; then
     log "ENV var DEV_ENV_HOME needs to be present"
     exit 1
