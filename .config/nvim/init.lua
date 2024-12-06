@@ -1,4 +1,4 @@
---[[
+--[[init
 
 =====================================================================
 ==================== READ THIS BEFORE CONTINUING ====================
@@ -756,6 +756,12 @@ require('lazy').setup({
           -- `friendly-snippets` contains a variety of premade snippets.
           --    See the README about individual language/framework/plugin snippets:
           --    https://github.com/rafamadriz/friendly-snippets
+          -- {
+          --   'mlaursen/vim-react-snippets',
+          --   config = function()
+          --     require('vim-react-snippets').lazy_load()
+          --   end,
+          -- },
           {
             'rafamadriz/friendly-snippets',
             config = function()
