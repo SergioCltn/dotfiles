@@ -33,8 +33,7 @@ execute() {
     "$@"
 }
 
-log "--------- dev-env ---------"
-
+log "#-----------------DEV-ENV------------------#"
 cd $script_dir
 
 # Copy directory from dotfiles to root 
