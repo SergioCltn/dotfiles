@@ -102,6 +102,9 @@ vim.g.have_nerd_font = false
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
 vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
+-- vim.keymap.set('n', '<Down>', '<cmd>cnext<CR>')
+-- vim.keymap.set('n', '<Up>', '<cmd>cprev<CR>')
+
 -- Make line numbers default
 vim.opt.number = true
 -- You can also add relative line numbers, to help with jumping.
@@ -145,6 +148,9 @@ vim.opt.timeoutlen = 300
 -- Configure how new splits should be opened
 vim.opt.splitright = true
 vim.opt.splitbelow = true
+
+-- Configure tabs show to 4
+vim.o.tabstop = 4
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`

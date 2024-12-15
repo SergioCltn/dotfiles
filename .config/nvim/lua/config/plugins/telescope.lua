@@ -54,6 +54,7 @@ return {
     local builtin = require 'telescope.builtin'
 
     require('config.telescope.multigrep').setup()
+    require('config.telescope.docker').setup()
     vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
     vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
     vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
