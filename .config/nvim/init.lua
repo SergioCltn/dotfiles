@@ -528,6 +528,8 @@ require('lazy').setup({
           -- end,
         },
 
+        tailwindcss = {},
+
         ts_ls = {
           on_attach = function(client)
             -- print(vim.inspect(client))
@@ -629,6 +631,7 @@ require('lazy').setup({
           },
         },
       },
+      { 'roobert/tailwindcss-colorizer-cmp.nvim', config = true },
       'saadparwaiz1/cmp_luasnip',
 
       -- Adds other completion capabilities.
@@ -650,6 +653,10 @@ require('lazy').setup({
           { name = 'buffer' },
         },
       })
+
+      cmp.config.formatting = {
+        format = require('tailwindcss-colorizer-cmp').formatter,
+      }
 
       cmp.setup {
         snippet = {
@@ -837,6 +844,7 @@ require('lazy').setup({
   require 'plugins.lazygit',
   require 'plugins.lua-line',
   require 'plugins.dadbod',
+  require 'plugins.tailwind',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
