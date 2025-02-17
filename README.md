@@ -1,3 +1,5 @@
+# SOURCES
+eza, tldr(tlrc), fzf, delta, bat, zoxide https://www.youtube.com/watch?v=mmqDYw9C30I
 # UNIX COMMANDS
 
 lets transform out! (the json file)
