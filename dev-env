@@ -95,3 +95,4 @@ log "#---------------CONFIG FILES---------------#"
 copy_file $DEV_ENV_HOME/git/.gitconfig $HOME
 copy_file $DEV_ENV_HOME/git/.githelpers $HOME
 copy_file $DEV_ENV_HOME/.zshrc $HOME
+copy_file $DEV_ENV_HOME/.tmux.config $HOME
