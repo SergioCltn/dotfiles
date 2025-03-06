@@ -112,6 +112,7 @@ _fzf_comprun() {
 # ---- Eza (better ls) -----
 
 alias ls="eza --icons=always"
+alias cp="cp -iv"
 
 
 # ---- Zoxide (better cd) ----
