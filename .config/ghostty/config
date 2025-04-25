@@ -33,7 +33,7 @@ background-opacity = 0.9
 background-blur-radius = 40
 
 # ghostty +list-themes
-theme = dark:tokyonight_night,light:dayfox.ghostty
+theme = tokyonight_night
 
 mouse-hide-while-typing = true
 
