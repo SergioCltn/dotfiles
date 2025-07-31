@@ -23,6 +23,28 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+
+    {
+      'microsoft/vscode-js-debug',
+      build = 'npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out',
+    },
+    -- {
+    --   'mxsdev/nvim-dap-vscode-js',
+    --   config = function()
+    --     require('dap-vscode-js').setup {
+    --       debugger_path = vim.fn.resolve(vim.fn.stdpath 'data' .. '/lazy/vscode-js-debug'),
+    --       adapters = {
+    --         'chrome',
+    --         'pwa-node',
+    --         'pwa-chrome',
+    --         'pwa-msedge',
+    --         'pwa-extensionHost',
+    --         'node-termianl',
+    --         'node',
+    --       },
+    --     }
+    --   end,
+    -- },
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
@@ -96,6 +118,7 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'codelldb',
         'delve',
+        'js-debug-adapter',
       },
     }
 
@@ -115,9 +138,90 @@ return {
     --   vim.fn.sign_define(tp, { text = icon, texthl = hl, numhl = hl })
     -- end
 
+    -- This and the adapters is gotten from https://github.com/mxsdev/nvim-dap-vscode-js/issues/58#issuecomment-2582575821
+
+    --- Gets a path to a package in the Mason registry.
+    --- Prefer this to `get_package`, since the package might not always be
+    --- available yet and trigger errors.
+    ---@param pkg string
+    ---@param path? string
+    local function get_pkg_path(pkg, path)
+      pcall(require, 'mason')
+      local root = vim.env.MASON or (vim.fn.stdpath 'data' .. '/mason')
+      path = path or ''
+      local ret = root .. '/packages/' .. pkg .. '/' .. path
+      return ret
+    end
+
+    for _, adapter in pairs { 'pwa-node', 'pwa-chrome' } do
+      require('dap').adapters[adapter] = {
+        type = 'server',
+        host = 'localhost',
+        port = '${port}',
+        executable = {
+          command = 'node',
+          args = {
+            get_pkg_path('js-debug-adapter', '/js-debug/src/dapDebugServer.js'),
+            '${port}',
+          },
+        },
+      }
+    end
+
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
+    -- This is gotten from    https://www.youtube.com/watch?v=Ul_WPhS2bis
+    for _, languages in pairs { 'javascript', 'typescript', 'javascriptreact', 'typescriptreact' } do
+      dap.configurations[languages] = {
+        {
+          type = 'pwa-node',
+          request = 'launch',
+          name = 'Launch file',
+          program = '${file}',
+          cwd = '${workspaceFolder}',
+        },
+        {
+          type = 'pwa-node',
+          request = 'attach',
+          name = 'Attach',
+          processId = require('dap.utils').pick_process,
+          cwd = '${workspaceFolder}',
+        },
+        -- Debug web applications (client side)
+        {
+          type = 'pwa-chrome',
+          request = 'launch',
+          name = 'Launch & Debug Chrome',
+          url = function()
+            local co = coroutine.running()
+            return coroutine.create(function()
+              vim.ui.input({
+                prompt = 'Enter URL: ',
+                default = 'http://localhost:3000',
+              }, function(url)
+                if url == nil or url == '' then
+                  return
+                else
+                  coroutine.resume(co, url)
+                end
+              end)
+            end)
+          end,
+          webRoot = vim.fn.getcwd(),
+          protocol = 'inspector',
+          sourceMaps = true,
+          userDataDir = false,
+        },
+        -- Divider for the launch.json derived configs
+        {
+          name = '----- ↓ launch.json configs ↓ -----',
+          type = '',
+          request = 'launch',
+        },
+      }
+    end
 
     -- Install golang specific config
     require('dap-go').setup {
