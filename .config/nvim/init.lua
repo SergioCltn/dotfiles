@@ -503,6 +503,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
+        clangd = {},
         gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
@@ -572,6 +573,7 @@ require('lazy').setup({
       -- for you, so that they are available from within Neovim.
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
+        'eslint_d',
         'stylua', -- Used to format Lua code
         'prettierd',
         'prettier',
@@ -830,6 +832,7 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
+  require 'plugins.debug',
   -- require 'kickstart.plugins.indent_line',
   require 'config.plugins.telescope',
   require 'plugins.gitsigns',

@@ -27,6 +27,7 @@ export MEDIASMART_HOME="$HOME/Repositories"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions mediasmart-frontend)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 alias air=$(go env GOPATH)/bin/air
