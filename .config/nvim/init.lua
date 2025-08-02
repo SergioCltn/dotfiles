@@ -711,6 +711,18 @@ require('lazy').setup({
 
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+
+        ['<enter>'] = {
+          function(cmp)
+            cmp.accept()
+          end,
+        },
+
+        ['<C-space>'] = {
+          function(cmp)
+            cmp.show {}
+          end,
+        },
       },
 
       appearance = {
