@@ -266,10 +266,10 @@ require('lazy').setup({
         tailwindcss = {},
 
         ts_ls = {
-          on_attach = function(client)
-            -- print(vim.inspect(client))
-            client.server_capabilities.documentFormattingProvider = false
-          end,
+          capabilities = {
+            documentFormattingProvider = false,
+            documentRangeFormattingProvider = false,
+          },
         },
 
         lua_ls = {
