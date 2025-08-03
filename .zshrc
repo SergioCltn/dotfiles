@@ -114,7 +114,14 @@ _fzf_comprun() {
 
 alias ls="eza --icons=always"
 alias cp="cp -iv"
+alias k="kubectl"
 
+# ---- Bat (better cat) ----
+alias cat="bat"
+
+if [[ "$(uname)" == "Linux" ]]; then
+    alias open="xdg-open"
+fi
 
 # ---- Zoxide (better cd) ----
 eval "$(zoxide init zsh)"
