@@ -712,11 +712,7 @@ require('lazy').setup({
         -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
         --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
 
-        ['<enter>'] = {
-          function(cmp)
-            cmp.accept()
-          end,
-        },
+        ['<CR>'] = { 'select_and_accept', 'fallback' },
 
         ['<C-space>'] = {
           function(cmp)
@@ -755,9 +751,9 @@ require('lazy').setup({
       -- See :h blink-cmp-config-fuzzy for more information
       fuzzy = { implementation = 'lua' },
 
-      -- cmp.config.formatting = {
+      -- formatting = {
       --   format = require('tailwindcss-colorizer-cmp').formatter,
-      -- }
+      -- },
       -- Shows a signature help window while you type arguments for a function
       signature = { enabled = true },
     },
