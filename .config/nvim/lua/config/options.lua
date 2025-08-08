@@ -28,7 +28,7 @@ vim.o.tabstop = 2
 vim.o.expandtab = true
 vim.o.smartindent = true
 vim.o.shiftwidth = 2
-vim.o.winborder = 'rounded'
+-- vim.o.winborder = 'rounded'
 
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`

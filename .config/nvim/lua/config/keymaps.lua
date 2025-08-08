@@ -41,3 +41,5 @@ vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
 -- vim.keymap.set('n', '<Down>', '<cmd>cnext<CR>')
 -- vim.keymap.set('n', '<Up>', '<cmd>cprev<CR>')
+--
+vim.keymap.set('n', '<leader>x', ':source %<CR>', { desc = 'Move focus to the left window', silent = true })
