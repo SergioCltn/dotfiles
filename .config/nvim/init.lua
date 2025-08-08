@@ -2,8 +2,10 @@ require 'config.keymaps'
 require 'config.options'
 require 'config.autocmds'
 require 'config.lazy'
+require 'scripts'
 
 -- NOTE: Here is where you install your plugins.
+
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'NMAC427/guess-indent.nvim', -- Detect tabstop and shiftwidth automatically
@@ -327,7 +329,15 @@ require('lazy').setup({
       }
     end,
   },
-
+  {
+    'saghen/blink.compat',
+    -- use the latest release, via version = '*', if you also use the latest release for blink.cmp
+    version = '*',
+    -- lazy.nvim will automatically load the plugin when it's required by blink.cmp
+    lazy = true,
+    -- make sure to set opts so that lazy.nvim calls blink.compat's setup
+    opts = {},
+  },
   { -- Autocompletion
     'saghen/blink.cmp',
     event = 'VimEnter',
@@ -378,19 +388,10 @@ require('lazy').setup({
         -- you will need to read `:help ins-completion`
         --
         -- No, but seriously. Please read `:help ins-completion`, it is really good!
-        --
-        -- All presets have the following mappings:
-        -- <tab>/<s-tab>: move to right/left of your snippet expansion
-        -- <c-space>: Open menu or open docs if already open
-        -- <c-n>/<c-p> or <up>/<down>: Select next/previous item
-        -- <c-e>: Hide menu
-        -- <c-k>: Toggle signature help
-        --
-        -- See :h blink-cmp-config-keymap for defining your own keymap
         preset = 'default',
 
-        -- For more advanced Luasnip keymaps (e.g. selecting choice nodes, expansion) see:
-        --    https://github.com/L3MON4D3/LuaSnip?tab=readme-ov-file#keymaps
+        ['<C-l>'] = { 'snippet_forward', 'fallback' },
+        ['<C-j>'] = { 'snippet_backward', 'fallback' },
 
         ['<CR>'] = { 'select_and_accept', 'fallback' },
 
@@ -410,18 +411,39 @@ require('lazy').setup({
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = false, auto_show_delay_ms = 500 },
+        documentation = { auto_show = true, auto_show_delay_ms = 300, window = { border = 'rounded' } },
+        menu = {
+          draw = {
+            columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', gap = 1, 'kind' } },
+          },
+        },
       },
 
       sources = {
-        default = { 'lsp', 'path', 'snippets', 'lazydev' },
+        default = { 'lsp', 'path', 'snippets', 'lazydev', 'cmdline', 'buffer' },
+        per_filetype = {
+          sql = { 'snippets', 'dadbod', 'buffer' },
+        },
         providers = {
           lazydev = { module = 'lazydev.integrations.blink', score_offset = 100 },
+          lsp = { fallbacks = {}, score_offset = 200 },
+          dadbod = { name = 'Dadbod', module = 'vim_dadbod_completion.blink' },
+          -- copilot = {
+          --   name = 'copilot',
+          --   module = 'blink-cmp-copilot',
+          --   score_offset = 100,
+          --   async = true,
+          -- },
         },
       },
 
       snippets = { preset = 'luasnip' },
 
+      cmdline = {
+        completion = {
+          menu = { auto_show = true },
+        },
+      },
       -- Blink.cmp includes an optional, recommended rust fuzzy matcher,
       -- which automatically downloads a prebuilt binary when enabled.
       --
@@ -489,6 +511,12 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
+  {
+    dir = '/Users/sergiogonzalezsicilia/nvimplugins/testing',
+    config = function()
+      require 'testing'
+    end,
+  },
 
   require 'plugins.debug',
   require 'plugins.telescope.telescope',
@@ -505,6 +533,8 @@ require('lazy').setup({
   require 'plugins.lua-line',
   require 'plugins.tailwind',
   require 'plugins.mini',
+  require 'plugins.dadbod',
+  require 'plugins.copilot',
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the
