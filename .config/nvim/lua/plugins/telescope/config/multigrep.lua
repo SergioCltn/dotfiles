@@ -24,7 +24,7 @@ local live_multigrep = function(opts)
 
       if pieces[2] then
         table.insert(args, '-g')
-        table.insert(args, '*' .. pieces[2] .. '*')
+        table.insert(args, pieces[2])
       end
 
       ---@diagnostic disable-next-line: deprecated
