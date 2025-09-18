@@ -33,7 +33,7 @@ background-opacity = 0.9
 background-blur-radius = 40
 
 # ghostty +list-themes
-theme = tokyonight_night
+theme = TokyoNight
 
 mouse-hide-while-typing = true
 
