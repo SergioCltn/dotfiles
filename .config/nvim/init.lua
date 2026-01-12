@@ -214,7 +214,7 @@ require('lazy').setup({
           end
 
           -- The following code creates a keymap to toggle inlay hints in your
-          -- code, if the language server you are using supports them
+          -- code, if the language server you are using supports them (ghost text)
           --
           -- This may be unwanted, since they displace some of your code
           if client and client_supports_method(client, vim.lsp.protocol.Methods.textDocument_inlayHint, event.buf) then
@@ -266,13 +266,30 @@ require('lazy').setup({
         eslint = {},
 
         tailwindcss = {},
-
-        ts_ls = {
-          on_attach = function(client)
-            -- print(vim.inspect(client))
-            client.server_capabilities.documentFormattingProvider = false
-          end,
+        yamlls = {
+          -- settings = {
+          --   yaml = {
+          --     schemaStore = {
+          --       enable = true, -- Enable SchemaStore for automatic schema downloading
+          --       url = 'https://www.schemastore.org/api/json/catalog.json',
+          --     },
+          --     schemas = {
+          --       ['https://raw.githubusercontent.com/instrumenta/kubernetes-json-schema/master/v1.24.0-standalone-strict/all.json'] = '*.k8s.yaml', -- Kubernetes schema
+          --       ['https://raw.githubusercontent.com/docker/compose/master/compose/config/config_schema_v3.9.json'] = 'docker-compose*.y{a,}ml', -- Docker Compose
+          --     },
+          --     format = { enable = true },
+          --     validate = true,
+          --     completion = true,
+          --   },
+          -- },
         },
+
+        eslint_d = {},
+        -- :LspConfig to debug all these things is very interesting
+
+        ts_ls = {},
+        -- zig
+        zls = {},
 
         lua_ls = {
           -- cmd = {...},
@@ -411,7 +428,7 @@ require('lazy').setup({
       completion = {
         -- By default, you may press `<c-space>` to show the documentation.
         -- Optionally, set `auto_show = true` to show the documentation after a delay.
-        documentation = { auto_show = true, auto_show_delay_ms = 300, window = { border = 'rounded' } },
+        documentation = { auto_show = true, auto_show_delay_ms = 0, window = { border = 'rounded' } },
         menu = {
           draw = {
             columns = { { 'label', 'label_description', gap = 1 }, { 'kind_icon', gap = 1, 'kind' } },
