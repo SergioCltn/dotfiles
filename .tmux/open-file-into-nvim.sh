@@ -92,7 +92,7 @@ if [[ ${#path} -gt 400 ]]; then
 fi
 
 # ─── Try to send to nvim ───────────────────────────────────────────────────
-if nvim --server "$NVIM_SOCKET" --remote "$path" 2>/dev/null; then
+if nvim --server "$NVIM_SOCKET" --remote-send "<Cmd>edit $path<CR>" 2>/dev/null; then
     log info "Successfully sent to nvim: ${path:0:60}${path:60:+...}."
 else
     local rc=$?
