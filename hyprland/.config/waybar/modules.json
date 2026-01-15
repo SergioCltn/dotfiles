@@ -18,10 +18,10 @@
       "urgent": "",
       "active": "",
       "default": ""
-    },
-    "persistent-workspaces": {
-      "*": 5
     }
+    //  "persistent-workspaces": {
+    //    "*": 3
+    //  }
   },
   // Taskbar
   "wlr/taskbar": {
@@ -95,8 +95,7 @@
     "exec": "~/.config/waybar/scripts/updates.sh",
     "interval": 1800,
     "signal": 1,
-    "hide-empty-text": true,
-    "on-click": "~/.config/waybar/scripts/installupdates.sh"
+    "hide-empty-text": true
   },
   // Wallpaper
   "custom/wallpaper": {
@@ -134,9 +133,9 @@
     // START APPS LABEL
     "format": "Apps",
     // END APPS LABEL
-    "on-click": "rofi -show drun -replace -i",
-    "on-click-right": "~/.config/hypr/scripts/keybindings.sh",
-    "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
+    "on-click": "hyprlauncher"
+    //"on-click-right": "~/.config/hypr/scripts/keybindings.sh",
+    //"tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
   },
   // Rofi Application Launcher
   "custom/appmenuicon": {

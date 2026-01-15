@@ -42,7 +42,11 @@ window#waybar {
 
 .modules-right {
     margin: 4px 6px 4px 0px;
+    background-color: @backgroundlight;
+    border-radius: 8px;
+    padding: 0px 6px;
 }
+
 
 .modules-center {
     margin: 4px 0px 4px 0px;
@@ -262,7 +266,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #idle_inhibitor {
-    margin-right: 10px;
+    margin-right: 0px;
     font-size: 14px;
     font-weight: bold;
     opacity: 0.8;
@@ -270,7 +274,7 @@ window#waybar.empty #window {
 }
 
 #idle_inhibitor.activated {
-    margin-right: 10px;
+    margin-right: 0px;
     font-size: 14px;
     font-weight: bold;
     opacity: 0.8;
@@ -311,11 +315,11 @@ window#waybar.empty #window {
 /* } */
 
 #custom-notification {
-    background-color: @backgroundlight;
+    background-color: transparent;
     color: @iconcolor;
     border-radius: 8px;
     padding: 2px 8px;
-    margin: 2px 8px 2px 0px;
+    margin: 2px 0px 2px 0px;
     opacity: 0.8;
 }
 
@@ -328,9 +332,9 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #custom-exit {
-    background-color: @backgroundlight;
+    background-color: transparent;
     border-radius: 8px;
-    margin: 2px 12px 2px 0px;
+    margin: 2px 0px 2px 0px;
     padding: 2px 8px;
     font-size: 14px;
     color: #f7768e;
@@ -347,11 +351,11 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #custom-updates {
-    background-color: @backgroundlight;
+    background-color: transparent;
     color: @textcolor1;
     border-radius: 8px;
     padding: 2px 8px;
-    margin: 2px 8px 2px 0px;
+    margin: 2px 0px 2px 0px;
     opacity: 0.8;
 }
 
@@ -361,7 +365,7 @@ window#waybar.empty #window {
 }
 
 #custom-updates.green {
-    background-color: @backgroundlight;
+    background-color: transparent;
 }
 
 #custom-updates.green:hover {
@@ -394,13 +398,13 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #clock {
-    background-color: @backgrounddark;
+    background-color: transparent;
     color: @textcolor1;
     border-radius: 8px;
     padding: 2px 8px;
     margin: 2px 0px;
     opacity: 0.8;
-    border: 2px solid @bordercolor;
+    border: none;
 }
 
 #clock:hover {
@@ -414,11 +418,11 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #backlight {
-    background-color: @backgroundlight;
+    background-color: transparent;
     color: @textcolor1;
     border-radius: 8px;
     padding: 2px 8px;
-    margin: 2px 8px 2px 0px;
+    margin: 2px 0px 2px 0px;
     opacity: 0.8;
 }
 
@@ -432,11 +436,11 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #pulseaudio {
-    background-color: @backgroundlight;
+    background-color: transparent;
     color: @textcolor1;
     border-radius: 8px;
     padding: 2px 8px;
-    margin: 2px 8px 2px 0px;
+    margin: 2px 0px 2px 0px;
     opacity: 0.8;
 }
 
@@ -446,7 +450,7 @@ window#waybar.empty #window {
 }
 
 #pulseaudio.muted {
-    background-color: @backgrounddark;
+    background-color: transparent;
     color: @textcolor1;
 }
 
@@ -455,11 +459,11 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #network {
-    background-color: @backgroundlight;
+    background-color: transparent;
     color: @textcolor1;
     border-radius: 8px;
     padding: 2px 8px;
-    margin: 2px 8px 2px 0px;
+    margin: 2px 0px 2px 0px;
     opacity: 0.8;
 }
 
@@ -469,12 +473,12 @@ window#waybar.empty #window {
 }
 
 #network.ethernet {
-    background-color: @backgroundlight;
+    background-color: transparent;
     color: @textcolor1;
 }
 
-#network.wifi {
-    background-color: @backgroundlight;
+ #network.wifi {
+    background-color: transparent;
     color: @textcolor1;
 }
 
@@ -483,11 +487,11 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #bluetooth, #bluetooth.on, #bluetooth.connected {
-    background-color: @backgroundlight;
+    background-color: transparent;
     color: @textcolor1;
     border-radius: 8px;
     padding: 2px 8px;
-    margin: 2px 8px 2px 0px;
+    margin: 2px 0px 2px 0px;
     opacity: 0.8;
 }
 
@@ -507,11 +511,11 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #battery {
-    background-color: @backgroundlight;
+    background-color: transparent;
     color: @textcolor1;
     border-radius: 8px;
     padding: 2px 8px;
-    margin: 2px 8px 2px 0px;
+    margin: 2px 0px 2px 0px;
     opacity: 0.8;
 }
 
@@ -522,7 +526,7 @@ window#waybar.empty #window {
 
 #battery.charging, #battery.plugged {
     color: @textcolor1;
-    background-color: @backgroundlight;
+    background-color: transparent;
 }
 
 @keyframes blink {
@@ -547,7 +551,7 @@ window#waybar.empty #window {
  * ----------------------------------------------------- */
 
 #tray {
-    padding: 0px 8px 0px 0px;
+    padding: 0px 0px 0px 0px;
 }
 
 #tray > .passive {
@@ -564,9 +568,9 @@ window#waybar.empty #window {
 
 #hardware,
 #tools {
-    background-color: @backgroundlight;
+    background-color: transparent;
     border-radius: 8px;
-    margin: 2px 8px 2px 0px;
+    margin: 2px 0px 2px 0px;
     padding: 2px 6px;
     opacity: 0.8;
 }

@@ -13,10 +13,10 @@
     // Modules Left
     "modules-left": [
         "custom/appmenu",
-        "wlr/taskbar",
+        "wlr/taskbar"
         //"group/quicklinks",
         //"hyprland/window",
-        "custom/empty"
+        //"custom/empty"
     ],
     // Modules Center
     "modules-center": [
@@ -31,9 +31,9 @@
         "network",
         "battery",
         "power-profiles-daemon",
-        "group/hardware",
+        //"group/hardware",
         // "group/tools",
-        "tray",
+        //"tray",
         "custom/notification",
         "clock",
         "custom/exit"
