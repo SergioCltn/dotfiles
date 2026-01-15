@@ -131,16 +131,6 @@ source ~/fzf-git.sh/fzf-git.sh
 eval "$(zoxide init zsh)"
 
 # ============================================================================
-# RIPGREP (BETTER GREP)
-# ============================================================================
-
-# Set default options for ripgrep
-export RIPGREP_CONFIG_PATH="$HOME/.ripgreprc"
-
-# Replace grep with ripgrep
-alias grep="rg"
-
-# ============================================================================
 # ALIASES
 # ============================================================================
 
@@ -148,6 +138,7 @@ alias grep="rg"
 alias ls="eza --icons=always"
 alias cat="bat"
 alias cd="z"
+alias grep="rg"
 
 # Utilities
 alias cp="cp -iv"

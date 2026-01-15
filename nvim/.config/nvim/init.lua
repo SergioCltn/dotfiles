@@ -265,7 +265,7 @@ require('lazy').setup({
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         eslint = {},
 
-        tailwindcss = {},
+        -- tailwindcss = {},
         yamlls = {
           -- settings = {
           --   yaml = {
@@ -383,7 +383,7 @@ require('lazy').setup({
               require('luasnip.loaders.from_vscode').lazy_load()
             end,
           },
-          { 'roobert/tailwindcss-colorizer-cmp.nvim', config = true },
+          -- { 'roobert/tailwindcss-colorizer-cmp.nvim', config = true },
         },
         opts = {},
       },
@@ -548,7 +548,7 @@ require('lazy').setup({
   require 'plugins.auto-session',
   require 'plugins.lazygit',
   require 'plugins.lua-line',
-  require 'plugins.tailwind',
+  -- require 'plugins.tailwind',
   require 'plugins.mini',
   require 'plugins.dadbod',
   require 'plugins.copilot',
