@@ -26,17 +26,17 @@ return {
       require('opencode').toggle()
     end, { desc = 'Toggle opencode' })
 
-    vim.keymap.set({ 'n', 'x' }, 'go', function()
-      return require('opencode').operator '@this '
-    end, { expr = true, desc = 'Add range to opencode' })
-    vim.keymap.set('n', 'goo', function()
-      return require('opencode').operator '@this ' .. '_'
-    end, { expr = true, desc = 'Add line to opencode' })
+    -- vim.keymap.set({ 'n', 'x' }, 'go', function()
+    --   return require('opencode').operator '@this '
+    -- end, { expr = true, desc = 'Add range to opencode' })
+    -- vim.keymap.set('n', 'goo', function()
+    --   return require('opencode').operator '@this ' .. '_'
+    -- end, { expr = true, desc = 'Add line to opencode' })
 
-    vim.keymap.set('n', '<S-C-u>', function()
+    vim.keymap.set('n', '<C-{>', function()
       require('opencode').command 'session.half.page.up'
     end, { desc = 'opencode half page up' })
-    vim.keymap.set('n', '<S-C-d>', function()
+    vim.keymap.set('n', '<C-}>', function()
       require('opencode').command 'session.half.page.down'
     end, { desc = 'opencode half page down' })
 
