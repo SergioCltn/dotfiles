@@ -1,0 +1,60 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 24,
+    "modules-left": ["custom/launcher"],
+    "modules-center": ["clock#time"],
+    "modules-right": ["backlight", "bluetooth", "network", "battery", "clock#date", "custom/power"],
+
+    "custom/launcher": {
+        "format": "Apps",
+        "on-click": "hyprlauncher",
+        "tooltip": false
+    },
+
+    "battery": {
+        "format": "{icon} {capacity}%",
+        "format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+        "format-charging": "󰂄 {capacity}%",
+        "interval": 30
+    },
+
+    "clock#time": {
+        "format": "󰥔 {:%H:%M}"
+    },
+
+    "clock#date": {
+        "format": "󰃶 {:%d/%m}",
+        "tooltip-format": "{:%Y-%m-%d}"
+    },
+
+    "network": {
+        "format-wifi": "󰤨 {essid}",
+        "format-ethernet": "󰈀 Eth",
+        "format-disconnected": "󰤭 Disconnected",
+        "tooltip-format-wifi": "{signalStrength}%",
+        "tooltip-format-ethernet": "{ifname}",
+        "on-click": "nm-connection-editor"
+    },
+
+    "bluetooth": {
+        "format": "󰂯",
+        "format-connected": "󰂱 {device_alias}",
+        "format-disabled": "",
+        "tooltip-format": "{controller_alias}\n{status}",
+        "on-click": "blueman-manager"
+    },
+
+    "backlight": {
+        "format": "󰃟 {percent}%",
+        "tooltip": false,
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+
+    "custom/power": {
+        "format": "󰐥",
+        "on-click": "~/.config/waybar/scripts/power-menu.sh",
+        "tooltip": false
+    }
+}
