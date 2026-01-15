@@ -21,7 +21,7 @@ source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 export DEV_ENV_HOME=~/dotfiles
 export ZSH="$HOME/.oh-my-zsh"
-export MEDIASMART_HOME="$HOME/Repositories"
+export MEDIASMART_HOME="$HOME/Repositories/mediasmart/"
 export XDG_CONFIG_HOME="$HOME/.config"
 
 # ============================================================================
