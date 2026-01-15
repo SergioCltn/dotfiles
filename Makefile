@@ -18,7 +18,10 @@ uninstall:
 	@./uninstall.sh
 
 stow:
-	@stow git tmux zsh ripgrep scripts nvim ghostty
+	@stow git tmux zsh scripts ghostty
+	@rm -rf ~/.config/nvim
+	@ln -sf $(PWD)/nvim/.config/nvim ~/.config/nvim
 
 unstow:
-	@stow -D git tmux zsh ripgrep scripts nvim ghostty
+	@stow -D git tmux zsh scripts ghostty
+	@rm -f ~/.config/nvim
