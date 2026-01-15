@@ -528,12 +528,12 @@ require('lazy').setup({
     --    - Show your current context: https://github.com/nvim-treesitter/nvim-treesitter-context
     --    - Treesitter + textobjects: https://github.com/nvim-treesitter/nvim-treesitter-textobjects
   },
-  {
-    dir = '/Users/sergiogonzalezsicilia/nvimplugins/testing',
-    config = function()
-      require 'testing'
-    end,
-  },
+  -- {
+  --   dir = '/Users/sergiogonzalezsicilia/nvimplugins/testing',
+  --   config = function()
+  --     require 'testing'
+  --   end,
+  -- },
 
   require 'plugins.debug',
   require 'plugins.telescope.telescope',
