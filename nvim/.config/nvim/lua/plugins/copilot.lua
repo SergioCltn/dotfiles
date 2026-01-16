@@ -10,7 +10,7 @@ return {
       auto_trigger = true,
     },
     panel = { enabled = false },
-    copilot_node_command = vim.fn.expand '$HOME' .. '/.nvm/versions/node/v22.11.0/bin/node',
+    copilot_node_command = vim.fn.expand '$HOME' .. '/.nvm/versions/node/v22.22.0/bin/node',
     filetypes = {
       sh = function()
         if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
