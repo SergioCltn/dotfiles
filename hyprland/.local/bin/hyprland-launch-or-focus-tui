@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Launch or focus on a given TUI identified by the passed in as the command.
+
+APP_ID="org.hyprland.$(basename "$1")"
+LAUNCH_COMMAND="$HOME/.local/bin/hyprland-launch-tui $@"
+
+exec $HOME/.local/bin/hyprland-launch-or-focus "$APP_ID" "$LAUNCH_COMMAND"

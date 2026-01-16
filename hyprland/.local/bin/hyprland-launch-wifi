@@ -1,0 +1,6 @@
+#!/bin/bash
+
+# Attempts to unblock the wifi service first in case it should be been blocked.
+
+rfkill unblock wifi
+exec $HOME/.local/bin/hyprland-launch-or-focus-tui impala
