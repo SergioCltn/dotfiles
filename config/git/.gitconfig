@@ -1,6 +1,6 @@
 [user]
-  name = <user>
-  email = <user>@gmail.com
+  name = SergioCltn
+  email = sgs98xd@gmail.com
 
 # Taken from here: https://registerspill.thorstenball.com/p/how-i-use-git
 [alias]
@@ -69,3 +69,9 @@
 
 [protocol "file"]
   allow = always
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
