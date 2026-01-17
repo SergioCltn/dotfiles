@@ -1,19 +1,20 @@
+# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
+# Initialization code that may require console input (password prompts, [y/n]
+# confirmations, etc.) must go above this block; everything else may go below.
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # ============================================================================
 # POWERLEVEL10K INSTANT PROMPT
 # ============================================================================
 # Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input must go above this block.
 
-typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
 
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+# source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 # ============================================================================
 # ENVIRONMENT VARIABLES
@@ -29,7 +30,7 @@ export XDG_CONFIG_HOME="$HOME/.config"
 # ============================================================================
 
 export PATH="/opt/homebrew/opt/mongodb-community@4.4/bin:$PATH"
-export PATH="$PATH:/Users/sergiogonzalezsicilia/.local/bin"
+export PATH="$PATH:$HOME/.local/bin"
 
 # ============================================================================
 # NVM (NODE VERSION MANAGER)
@@ -48,8 +49,8 @@ export NVM_DIR="$HOME/.nvm"
 autoload -Uz compinit
 compinit
 
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions mediasmart-frontend)
-source $ZSH/oh-my-zsh.sh
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+# source $ZSH/oh-my-zsh.sh
 
 # ============================================================================
 # HISTORY SETTINGS
@@ -70,7 +71,6 @@ setopt hist_reduce_blanks
 # ============================================================================
 
 setopt noclobber          # Prevent overwriting files with > (use >! to override)
-setopt correct            # Suggest corrections for mistyped commands
 
 # ============================================================================
 # FZF CONFIGURATION
@@ -122,7 +122,7 @@ _fzf_comprun() {
 }
 
 # FZF Git integration
-source ~/fzf-git.sh/fzf-git.sh
+# source ~/fzf-git.sh/fzf-git.sh
 
 # ============================================================================
 # ZOXIDE (BETTER CD)
@@ -149,3 +149,7 @@ alias nvim="nvim --listen ./nvim.sock"
 if [[ "$(uname)" == "Linux" ]]; then
     alias open="xdg-open"
 fi
+source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
