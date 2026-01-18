@@ -1,5 +1,3 @@
-
-set -eEo pipefail
 if command -v limine &>/dev/null; then
   yay -S --noconfirm --needed limine-snapper-sync limine-mkinitcpio-hook
 
@@ -29,10 +27,10 @@ EOF
     exit 1
   fi
 
-  # CMDLINE=$(grep "^[[:space:]]*cmdline:" "$limine_config" | head -1 | sed 's/^[[:space:]]*cmdline:[[:space:]]*//')
-  #
-  # sudo cp $OMARCHY_PATH/default/limine/default.conf /etc/default/limine
-  # sudo sed -i "s|@@CMDLINE@@|$CMDLINE|g" /etc/default/limine
+  CMDLINE=$(grep "^[[:space:]]*cmdline:" "$limine_config" | head -1 | sed 's/^[[:space:]]*cmdline:[[:space:]]*//')
+
+  sudo cp $OMARCHY_PATH/default/limine/default.conf /etc/default/limine
+  sudo sed -i "s|@@CMDLINE@@|$CMDLINE|g" /etc/default/limine
 
   # UKI and EFI fallback are EFI only
   if [[ -z $EFI ]]; then
@@ -45,11 +43,11 @@ EOF
   fi
 
   # We overwrite the whole thing knowing the limine-update will add the entries for us
-  sudo cp $HOME/dotfiles/limine/limine.conf /boot/limine.conf
+  sudo cp $OMARCHY_PATH/default/limine/limine.conf /boot/limine.conf
 
 
   # Match Snapper configs if not installing from the ISO
-  # if [[ -z ${OMARCHY_CHROOT_INSTALL:-} ]]; then
+  if [[ -z ${OMARCHY_CHROOT_INSTALL:-} ]]; then
     if ! sudo snapper list-configs 2>/dev/null | grep -q "root"; then
       sudo snapper -c root create-config /
     fi
@@ -69,8 +67,7 @@ EOF
   sudo sed -i 's/^SPACE_LIMIT="0.5"/SPACE_LIMIT="0.3"/' /etc/snapper/configs/{root,home}
   sudo sed -i 's/^FREE_LIMIT="0.2"/FREE_LIMIT="0.3"/' /etc/snapper/configs/{root,home}
 
-  #TODO: this was chrootable_systemctl_enable limine-snapper-sync.service
-  sudo systemctl enable limine-snapper-sync.service
+  chrootable_systemctl_enable limine-snapper-sync.service
 fi
 
 echo "Re-enabling mkinitcpio hooks..."
