@@ -19,7 +19,7 @@ run_logged $OMARCHY_INSTALL/config/fast-shutdown.sh
 # run_logged $OMARCHY_INSTALL/config/input-group.sh
 
 run_logged $OMARCHY_INSTALL/config/hardware/network.sh
-run_logged $OMARCHY_INSTALL/config/hardware/set-wireless-regdom.sh
+# run_logged $OMARCHY_INSTALL/config/hardware/set-wireless-regdom.sh
 run_logged $OMARCHY_INSTALL/config/hardware/bluetooth.sh
 run_logged $OMARCHY_INSTALL/config/hardware/printer.sh
 run_logged $OMARCHY_INSTALL/config/hardware/usb-autosuspend.sh

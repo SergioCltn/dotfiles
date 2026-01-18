@@ -55,7 +55,7 @@ EOF
     if ! sudo snapper list-configs 2>/dev/null | grep -q "home"; then
       sudo snapper -c home create-config /home
     fi
-  # fi
+  fi
 
   # Enable quota to allow space-aware algorithms to work
   sudo btrfs quota enable /
