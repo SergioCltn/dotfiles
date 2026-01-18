@@ -3,9 +3,9 @@
 This README explains what each package in `omarchy-base.packages` and `omarchy-yay.packages` does.
 
 # Screenshots
-- **grim**: Grab images from a Wayland compositor.
-- **satty**: A screenshot annotation tool.
-- **slurp**: Select a region in a Wayland compositor.
+- **grim**: Grab images from a Wayland compositor, allowing screenshots of windows or the entire screen in Wayland environments.
+- **satty**: A screenshot annotation tool, similar to Paint, for editing, annotating, and enhancing screenshots with text, shapes, and effects.
+- **slurp**: Select a region in a Wayland compositor, useful for defining rectangular areas for screenshots or other interactive operations.
 - **wayfreeze (yay)**:  Utility to freeze the screen for screenshots on Wayland.
 
 
