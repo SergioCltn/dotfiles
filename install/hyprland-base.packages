@@ -1,18 +1,7 @@
-# pinta
-# wayfreeze
-# yay
-# opencode
-# 1password-beta
-# 1password-cli
-# ufw-docker
-# gpu-screen-recorder
-# xdg-terminal-exec
-
 discord
 hyprlauncher
 hyprpaper
 lsof
-make
 neovim
 stow
 tmux
@@ -107,3 +96,24 @@ wiremix
 wireless-regdb
 wireplumber
 wl-clipboard
+snapper
+wget
+base
+base-devel
+autoconf-archive
+broadcom-wl
+btrfs-progs
+dkms
+egl-wayland
+gst-plugin-pipewire
+gtk4-layer-shell
+htop
+intltool
+libpulse
+linux-headers
+pipewire
+pipewire-alsa
+pipewire-jack
+pipewire-pulse
+qt6-wayland
+webp-pixbuf-loader

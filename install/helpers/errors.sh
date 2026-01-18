@@ -24,11 +24,11 @@ show_cursor() {
 
 # Display truncated log lines from the install log
 show_log_tail() {
-  if [[ -f $OMARCHY_INSTALL_LOG_FILE ]]; then
+  if [[ -f $DOTFILES_INSTALL_LOG_FILE ]]; then
     local log_lines=$(($TERM_HEIGHT - $LOGO_HEIGHT - 35))
     local max_line_width=$((LOGO_WIDTH - 4))
 
-    tail -n $log_lines "$OMARCHY_INSTALL_LOG_FILE" | while IFS= read -r line; do
+    tail -n $log_lines "$DOTFILES_INSTALL_LOG_FILE" | while IFS= read -r line; do
       if ((${#line} > max_line_width)); then
         local truncated_line="${line:0:$max_line_width}..."
       else
@@ -106,7 +106,7 @@ catch_errors() {
 
     # If online install, show retry first
     # TODO: look about this online thing 
-    if [[ -n ${OMARCHY_ONLINE_INSTALL:-} ]]; then
+    if [[ -n ${DOTFILES_ONLINE_INSTALL:-} ]]; then
       options+=("Retry installation")
     fi
 
@@ -122,9 +122,9 @@ catch_errors() {
       ;;
     "View full log")
       if command -v less &>/dev/null; then
-        less "$OMARCHY_INSTALL_LOG_FILE"
+        less "$DOTFILES_INSTALL_LOG_FILE"
       else
-        tail "$OMARCHY_INSTALL_LOG_FILE"
+        tail "$DOTFILES_INSTALL_LOG_FILE"
       fi
       ;;
     "Exit" | "")

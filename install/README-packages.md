@@ -1,0 +1,141 @@
+# Pacman Package Descriptions
+
+This README explains what each package in `omarchy-base.packages` and `omarchy-yay.packages` does.
+
+# Screenshots
+- **grim**: Grab images from a Wayland compositor.
+- **satty**: A screenshot annotation tool.
+- **slurp**: Select a region in a Wayland compositor.
+- **wayfreeze (yay)**:  Utility to freeze the screen for screenshots on Wayland.
+
+
+
+- **discord**: All-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.
+- **hyprlauncher**: A multipurpose and versatile launcher / picker for Hyprland.
+- **hyprpaper**: Wallpaper manager for wlroots compositors.
+- **lsof**: Lists open files for running Unix processes.
+- **neovim**: Fork of Vim aiming to improve user experience, plugins, and GUIs.
+- **stow**: A symlink farm manager which takes distinct packages of software and/or data located in separate directories on the filesystem, and makes them appear to be installed in the same place.
+- **tmux**: A terminal multiplexer.
+- **which**: Locate a command.
+- **zsh**: A shell designed for interactive use, although it is also a powerful scripting language.
+- **ufw**: Uncomplicated and easy to use CLI tool for managing a netfilter firewall.
+- **brightnessctl**: A program to read and control device brightness.
+- **bat**: A cat clone with syntax highlighting and Git integration.
+- **bluetui**: Bluetooth TUI tool.
+- **bolt**: Thunderbolt device manager.
+- **btop**: A monitor of resources.
+- **clang**: C language family frontend for LLVM.
+- **cups**: The CUPS Printing System - daemon package.
+- **cups-browsed**: CUPS printer browsing functionality.
+- **cups-filters**: OpenPrinting CUPS Filters.
+- **cups-pdf**: PDF printer for CUPS.
+- **docker**: Pack, ship and run any application as a lightweight container.
+- **docker-buildx**: Docker CLI plugin for extended build capabilities with BuildKit.
+- **docker-compose**: Define and run multi-container Docker applications.
+- **dotnet-runtime-9.0**: The .NET Core runtime.
+- **evince**: Document viewer for multiple document formats.
+- **eza**: A modern replacement for ls.
+- **fastfetch**: A fast, highly customizable system information tool.
+- **fd**: A simple, fast and user-friendly alternative to find.
+- **ffmpegthumbnailer**: Lightweight video thumbnailer that can be used by file managers.
+- **exfatprogs**: exFAT filesystem userspace utilities.
+- **fontconfig**: Library for configuring and customizing font access.
+- **fzf**: Command-line fuzzy finder.
+- **ghostty**: A fast, native terminal emulator written in Zig.
+- **github-cli**: GitHub's official command line tool.
+- **gum**: A tool for glamorous shell scripts.
+- **gvfs-mtp**: Virtual filesystem implementation for GIO (MTP backend; Android, media player).
+- **gvfs-nfs**: Virtual filesystem implementation for GIO (NFS backend).
+- **gvfs-smb**: Virtual filesystem implementation for GIO (SMB/CIFS backend).
+- **hypridle**: hyprland's idle daemon.
+- **hyprland**: A highly customizable dynamic tiling Wayland compositor.
+- **hyprland-guiutils**: Hyprland GUI utilities.
+- **hyprlock**: hyprland's GPU-accelerated screen locking utility.
+- **hyprpicker**: A wlroots-compatible Wayland color picker that does not suck.
+- **hyprsunset**: A blue light filter for Hyprland.
+- **imagemagick**: An image viewing/manipulation program.
+- **impala**: A simple, powerful text editor.
+- **imv**: Image viewer for X11/Wayland.
+- **iwd**: Internet Wireless Daemon.
+- **jq**: Command-line JSON processor.
+- **inetutils**: A collection of common network programs.
+- **kdenlive**: A non-linear video editor for Linux.
+- **lazydocker**: A simple terminal UI for docker and docker-compose.
+- **lazygit**: Simple terminal UI for git commands.
+- **less**: A pager program similar to more.
+- **llvm**: Collection of modular and reusable compiler and toolchain technologies.
+- **libreoffice-fresh**: LibreOffice branch which contains new features and program enhancements.
+- **mpv**: A free, open source, and cross-platform media player.
+- **nautilus**: Default file manager for GNOME.
+- **man-db**: A utility for reading man pages.
+- **mako**: Lightweight notification daemon for Wayland.
+- **noto-fonts**: Google Noto TTF fonts.
+- **noto-fonts-cjk**: Google Noto CJK fonts.
+- **noto-fonts-emoji**: Google Noto Color Emoji font.
+- **noto-fonts-extra**: Additional variants of Google Noto fonts.
+- **woff2-font-awesome**: Font Awesome icon font in WOFF2 format.
+- **plymouth**: A graphical boot splash screen with kernel mode-setting support.
+- **plocate**: A much faster locate.
+- **power-profiles-daemon**: Makes power profiles handling available over D-Bus.
+- **zoxide**: A smarter cd command.
+- **xdg-desktop-portal-gtk**: A backend implementation for xdg-desktop-portal using GTK.
+- **xdg-desktop-portal-hyprland**: xdg-desktop-portal backend for hyprland.
+- **pamixer**: Pulseaudio command line mixer.
+- **gnome-disk-utility**: Disk Management Utility for GNOME.
+- **qt5-wayland**: Provides APIs for Wayland.
+- **unzip**: For extracting and viewing files in .zip archives.
+- **usage**: A modern version of 'du'.
+- **uwsm**: Universal Wayland Session Manager.
+- **waybar**: Highly customizable Wayland bar for Sway and Wlroots based compositors.
+- **ripgrep**: A line-oriented search tool that recursively searches the current directory for a regex pattern while respecting gitignore rules.
+- **rust**: Systems programming language that runs blazingly fast, prevents segfaults, and guarantees thread safety.
+- **sddm**: Simple Desktop Display Manager.
+- **mise**: A development environment setup tool.
+- **playerctl**: mpris media player controller and lib for spotify, vlc, audacious, bmp, xmms2, and others.
+- **polkit-gnome**: Legacy polkit authentication agent for GNOME.
+- **system-config-printer**: A CUPS printer configuration tool and status applet.
+- **sushi**: A quick previewer for Nautilus.
+- **tldr**: Collaborative cheatsheets for console commands.
+- **tree-sitter-cli**: CLI tool for the Tree-sitter parsing library.
+- **ttf-cascadia-mono-nerd**: Patched font Cascadia Mono from nerd fonts library.
+- **ttf-jetbrains-mono-nerd**: Patched font JetBrains Mono from nerd fonts library.
+- **whois**: The whois client by RIPE.
+- **wiremix**: A simple and lightweight audio mixer for Wayland.
+- **wireless-regdb**: Central Regulatory Domain Database.
+- **wireplumber**: Session / policy manager implementation for PipeWire.
+- **wl-clipboard**: Command-line copy/paste utilities for Wayland.
+- **snapper**: A tool for managing BTRFS and LVM snapshots.
+- **wget**: A network utility to retrieve files from the Web.
+- **base**: Minimal package set to define a basic Arch Linux installation.
+- **base-devel**: Basic tools to build Arch Linux packages.
+- **autoconf-archive**: A collection of freely re-usable Autoconf macros.
+- **broadcom-wl**: Broadcom 802.11 Linux STA wireless driver.
+- **btrfs-progs**: Btrfs filesystem utilities.
+- **dkms**: Dynamic Kernel Module Support.
+- **egl-wayland**: EGLStream-based Wayland external platform.
+- **gst-plugin-pipewire**: Multimedia graph framework - pipewire plugin.
+- **gtk4-layer-shell**: Library to create Wayland desktop components using the Layer Shell protocol.
+- **htop**: Interactive process viewer.
+- **intltool**: The internationalization tool collection.
+- **libpulse**: A featureful, general-purpose sound server (client libraries).
+- **linux-headers**: Header files and scripts for building modules for Linux kernel.
+- **pipewire**: Server and user space API to deal with multimedia pipelines.
+- **pipewire-alsa**: ALSA configuration for PipeWire.
+- **pipewire-jack**: JACK support for PipeWire.
+- **pipewire-pulse**: PulseAudio replacement for PipeWire.
+- **qt6-wayland**: Provides APIs for Wayland.
+- **webp-pixbuf-loader**: WebP image loader for GTK+ applications.
+
+## AUR Packages (via yay)
+
+- **pinta**: Drawing/editing program modeled after Paint.NET.
+- **opencode**: The AI coding agent built for the terminal.
+- **1password-beta**: Beta version of the 1Password password manager.
+- **1password-cli**: 1Password command line tool.
+- **ufw-docker**: To fix the Docker and UFW security flaw without disabling iptables.
+- **gpu-screen-recorder**: A shadowplay-like screen recorder for Linux. The fastest screen recorder for Linux.
+- **xdg-terminal-exec**: Protocol to launch commands in the user's preferred terminal emulator.
+- **limine-mkinitcpio-hook**: Mkinitcpio hook for Limine bootloader (mkinitcpio is a tool for building the initial ramdisk used during boot).
+- **limine-snapper-sync**: Sync snapshots with Limine bootloader.
+- **brave-bin**: Brave web browser binary package.

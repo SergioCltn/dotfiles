@@ -29,7 +29,7 @@ EOF
 
   CMDLINE=$(grep "^[[:space:]]*cmdline:" "$limine_config" | head -1 | sed 's/^[[:space:]]*cmdline:[[:space:]]*//')
 
-  sudo cp $OMARCHY_PATH/default/limine/default.conf /etc/default/limine
+  sudo cp $DOTFILES_PATH/default/limine/default.conf /etc/default/limine
   sudo sed -i "s|@@CMDLINE@@|$CMDLINE|g" /etc/default/limine
 
   # UKI and EFI fallback are EFI only
@@ -43,11 +43,11 @@ EOF
   fi
 
   # We overwrite the whole thing knowing the limine-update will add the entries for us
-  sudo cp $OMARCHY_PATH/default/limine/limine.conf /boot/limine.conf
+  sudo cp $DOTFILES_PATH/default/limine/limine.conf /boot/limine.conf
 
 
   # Match Snapper configs if not installing from the ISO
-  if [[ -z ${OMARCHY_CHROOT_INSTALL:-} ]]; then
+  if [[ -z ${DOTFILES_CHROOT_INSTALL:-} ]]; then
     if ! sudo snapper list-configs 2>/dev/null | grep -q "root"; then
       sudo snapper -c root create-config /
     fi
@@ -55,7 +55,7 @@ EOF
     if ! sudo snapper list-configs 2>/dev/null | grep -q "home"; then
       sudo snapper -c home create-config /home
     fi
-  # fi
+  fi
 
   # Enable quota to allow space-aware algorithms to work
   sudo btrfs quota enable /

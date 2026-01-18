@@ -4,17 +4,17 @@
 set -eEo pipefail
 
 # Define Omarchy locations
-export OMARCHY_PATH="$HOME/dotfiles"
-export OMARCHY_INSTALL="$OMARCHY_PATH/install"
-export OMARCHY_INSTALL_LOG_FILE="$HOME/dotfiles/install.log"
+export DOTFILES_PATH="$HOME/dotfiles"
+export DOTFILES_INSTALL="$DOTFILES_PATH/install"
+export DOTFILES_INSTALL_LOG_FILE="$HOME/dotfiles/install.log"
 
 # TODO: be careful with the path
-export PATH="$OMARCHY_PATH/bin:$PATH"
+export PATH="$DOTFILES_PATH/bin:$PATH"
 
 # Install
-source "$OMARCHY_INSTALL/helpers/all.sh"
-source "$OMARCHY_INSTALL/preflight/all.sh"
-source "$OMARCHY_INSTALL/packaging/all.sh"
-source "$OMARCHY_INSTALL/config/all.sh"
-source "$OMARCHY_INSTALL/login/all.sh"
-source "$OMARCHY_INSTALL/post-install/all.sh"
+source "$DOTFILES_INSTALL/helpers/all.sh"
+source "$DOTFILES_INSTALL/preflight/all.sh"
+source "$DOTFILES_INSTALL/packaging/all.sh"
+source "$DOTFILES_INSTALL/config/all.sh"
+source "$DOTFILES_INSTALL/login/all.sh"
+source "$DOTFILES_INSTALL/post-install/all.sh"
