@@ -140,8 +140,8 @@
     "tooltip": false
   },
   "custom/screenrecording-indicator": {
-    "on-click": "omarchy-cmd-screenrecord",
-    "exec": "$OMARCHY_PATH/default/waybar/indicators/screen-recording.sh",
+    "on-click": "$HOME/.local.bin/hyprland-cmd-screenrecord",
+    "exec": "$HOME/.config/waybar/indicators/screen-recording.sh",
     "signal": 8,
     "return-type": "json"
   },

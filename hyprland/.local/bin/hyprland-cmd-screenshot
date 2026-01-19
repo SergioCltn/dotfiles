@@ -85,3 +85,5 @@ grim -g "$SELECTION" - |
 else
   grim -g "$SELECTION" - | wl-copy
 fi
+
+notify-send "Screenshot saved to clipboard" -t 2000
