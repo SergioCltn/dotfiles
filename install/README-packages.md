@@ -2,13 +2,11 @@
 
 This README explains what each package in `omarchy-base.packages` and `omarchy-yay.packages` does.
 
-# Screenshots
-- **grim**: Grab images from a Wayland compositor, allowing screenshots of windows or the entire screen in Wayland environments.
-- **satty**: A screenshot annotation tool, similar to Paint, for editing, annotating, and enhancing screenshots with text, shapes, and effects.
-- **slurp**: Select a region in a Wayland compositor, useful for defining rectangular areas for screenshots or other interactive operations.
-- **wayfreeze (yay)**:  Utility to freeze the screen for screenshots on Wayland.
-
-
+- **grim** (screenshots): Grab images from a Wayland compositor, allowing screenshots of windows or the entire screen in Wayland environments.
+- **satty** (screenshots): A screenshot annotation tool, similar to Paint, for editing, annotating, and enhancing screenshots with text, shapes, and effects.
+- **slurp** (screenshots): Select a region in a Wayland compositor, useful for defining rectangular areas for screenshots or other interactive operations.
+- **wayfreeze** (screenshots, yay): Utility to freeze the screen for screenshots on Wayland.
+- **mako** (notifications): Lightweight notification daemon for Wayland compositors, providing customizable on-screen notifications for events like messages, system alerts, and application updates.
 
 - **discord**: All-in-one voice and text chat for gamers that's free, secure, and works on both your desktop and phone.
 - **hyprlauncher**: A multipurpose and versatile launcher / picker for Hyprland.
@@ -69,7 +67,6 @@ This README explains what each package in `omarchy-base.packages` and `omarchy-y
 - **mpv**: A free, open source, and cross-platform media player.
 - **nautilus**: Default file manager for GNOME.
 - **man-db**: A utility for reading man pages.
-- **mako**: Lightweight notification daemon for Wayland.
 - **noto-fonts**: Google Noto TTF fonts.
 - **noto-fonts-cjk**: Google Noto CJK fonts.
 - **noto-fonts-emoji**: Google Noto Color Emoji font.
@@ -139,3 +136,4 @@ This README explains what each package in `omarchy-base.packages` and `omarchy-y
 - **limine-mkinitcpio-hook**: Mkinitcpio hook for Limine bootloader (mkinitcpio is a tool for building the initial ramdisk used during boot).
 - **limine-snapper-sync**: Sync snapshots with Limine bootloader.
 - **brave-bin**: Brave web browser binary package.
+- **sddm-silent-theme**: A minimal, silent theme for SDDM (Simple Desktop Display Manager) that provides a clean boot experience without unnecessary visual elements.

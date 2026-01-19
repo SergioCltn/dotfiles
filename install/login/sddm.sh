@@ -6,7 +6,7 @@ if [ ! -f /etc/sddm.conf.d/autologin.conf ]; then
 User=$USER
 
 [Theme]
-Current=breeze
+Current=sddm-silent-theme
 EOF
 fi
 
