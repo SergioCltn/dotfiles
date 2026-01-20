@@ -5,6 +5,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
 # ============================================================================
 # POWERLEVEL10K INSTANT PROMPT
 # ============================================================================
@@ -65,12 +66,6 @@ setopt hist_ignore_dups
 setopt hist_verify
 setopt hist_ignore_space
 setopt hist_reduce_blanks
-
-# ============================================================================
-# SHELL OPTIONS
-# ============================================================================
-
-setopt noclobber          # Prevent overwriting files with > (use >! to override)
 
 # ============================================================================
 # FZF CONFIGURATION
@@ -232,7 +227,13 @@ img2png() {
 if [[ "$(uname)" == "Linux" ]]; then
     alias open="xdg-open"
 fi
-source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+
+# Platform-specific theme sourcing
+if [[ "$(uname)" == "Linux" ]]; then
+    source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
+elif [[ "$(uname)" == "Darwin" ]]; then
+    source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
+fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
