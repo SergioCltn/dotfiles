@@ -14,7 +14,20 @@
     "battery",
     "power-profiles-daemon",
     "cpu",
+    "custom/power"
   ],
+  "custom/power": {
+    "format": "⏻ ",
+    "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/power_menu.xml",
+    "menu-actions": {
+      "suspend": "systemctl suspend",
+      "hibernate": "systemctl hibernate",
+      "reboot": "reboot",
+      "shutdown": "shutdown -h now"
+    }
+  },
   "backlight": {
     "format": "{icon}",
     "format-icons": [

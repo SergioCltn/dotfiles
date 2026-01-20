@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 
-selected=$(find ~/Repositories ~/personal -maxdepth 1 -mindepth 1 -type d | fzf)
+repos_paths="$HOME/Repositories"
+mkdir -p $repos_paths
+
+selected=$(find $repos_paths -maxdepth 1 -mindepth 1 -type d | fzf)
 if [[ -z "$selected" ]]; then
     exit 0
 fi

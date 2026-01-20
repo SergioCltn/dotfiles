@@ -76,6 +76,10 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
+fzfpacman() { pacman -Sql | fzf --preview 'pacman -Si {}' \
+      --preview-window=right:65%:wrap \
+      --height 90% --layout=reverse --border; }
+
 # ============================================================================
 # FUNCTIONS
 # ============================================================================

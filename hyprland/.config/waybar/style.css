@@ -3,6 +3,7 @@
 @define-color foreground white;
 @define-color background_hover #7aa2f7;
 @define-color foreground_hover white;
+@define-color menu_background #161320;
 
 * {
   border: none;
@@ -47,7 +48,6 @@ window#waybar {
 
 #cpu,
 #battery,
-#pulseaudio,
 #custom-screenrecording-indicator {
   min-width: 12px;
   margin: 0 7.5px;
@@ -58,7 +58,7 @@ window#waybar {
 }
 
 #pulseaudio {
-  margin-right: 15px;
+  margin-right: 20px;
 }
 
 #power-profiles-daemon {
@@ -74,7 +74,7 @@ window#waybar {
 }
 
 #network {
-  margin-right: 13px;
+  margin-right: 20px;
 }
 
 #backlight {
@@ -151,4 +151,18 @@ tooltip {
 #custom-appmenu:active {
     background: #3b4261;
     color: #9ece6a;
+}
+
+#custom-power {
+  margin-left: 10px;
+}
+
+menu {
+  border-radius: 15px;
+  background: @menu_background;
+  color: @foreground;
+}
+
+menuitem {
+  border-radius: 15px;
 }
