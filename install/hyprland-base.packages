@@ -29,6 +29,7 @@ fd
 ffmpegthumbnailer
 exfatprogs
 fontconfig
+ttf-fira-code
 fzf
 ghostty
 github-cli
@@ -63,7 +64,6 @@ noto-fonts
 noto-fonts-cjk
 noto-fonts-emoji
 noto-fonts-extra
-woff2-font-awesome
 plymouth
 plocate
 power-profiles-daemon

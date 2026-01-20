@@ -1,30 +1,9 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
-
-
-# ============================================================================
-# POWERLEVEL10K INSTANT PROMPT
-# ============================================================================
-# Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input must go above this block.
-
-
-# source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-
 # ============================================================================
 # ENVIRONMENT VARIABLES
 # ============================================================================
 
-export DEV_ENV_HOME=~/dotfiles
 export ZSH="$HOME/.oh-my-zsh"
 export MEDIASMART_HOME="$HOME/Repositories/mediasmart/"
-export XDG_CONFIG_HOME="$HOME/.config"
 
 # ============================================================================
 # PATH CONFIGURATION
@@ -36,22 +15,72 @@ export PATH="$PATH:$HOME/.local/bin"
 # ============================================================================
 # NVM (NODE VERSION MANAGER)
 # ============================================================================
-# Must be loaded before Oh-My-Zsh plugins that depend on it
 
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # ============================================================================
 # OH-MY-ZSH CONFIGURATION
 # ============================================================================
 
-# Enable completion system
-autoload -Uz compinit
-compinit
-
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
+
+
+# ============================================================================
+# INITS
+# ============================================================================
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
+fi
+
+if command -v starship &> /dev/null; then
+  eval "$(starship init zsh)"
+fi
+
+if command -v zoxide &> /dev/null; then
+  eval "$(zoxide init zsh)"
+fi
+
+eval "$(fzf --zsh)"
+
+# ============================================================================
+# ALIASES
+# ============================================================================
+
+if command -v eza &> /dev/null; then
+  alias ls='eza -lh --group-directories-first --icons=auto'
+  alias lt='eza --tree --level=2 --long --icons --git'
+fi
+
+alias ff="fzf --preview 'bat --style=numbers --color=always {}'"
+
+
+if command -v zoxide &> /dev/null; then
+  alias cd="z"
+fi
+
+if [[ "$(uname)" == "Linux" ]]; then
+    alias open="xdg-open"
+fi
+
+alias cat="bat"
+alias grep="rg"
+alias cp="cp -iv"
+alias k="kubectl"
+alias nvim="nvim --listen ./nvim.sock"
+
+# Directories
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+
+# ============================================================================
+# FUNCTIONS
+# ============================================================================
+compress() { tar -czf "${1%/}.tar.gz" "${1%/}"; }
+alias decompress="tar -xzf"
 
 # ============================================================================
 # HISTORY SETTINGS
@@ -66,175 +95,3 @@ setopt hist_ignore_dups
 setopt hist_verify
 setopt hist_ignore_space
 setopt hist_reduce_blanks
-
-# ============================================================================
-# FZF CONFIGURATION
-# ============================================================================
-
-# Set up fzf key bindings and fuzzy completion
-eval "$(fzf --zsh)"
-
-# FZF theme colors
-fg="#CBE0F0"
-bg="#011628"
-bg_highlight="#143652"
-purple="#B388FF"
-blue="#06BCE4"
-cyan="#2CF9ED"
-
-export FZF_DEFAULT_OPTS="--color=fg:${fg},bg:${bg},hl:${purple},fg+:${fg},bg+:${bg_highlight},hl+:${purple},info:${blue},prompt:${cyan},pointer:${cyan},marker:${cyan},spinner:${cyan},header:${cyan}"
-
-# Use fd instead of find
-export FZF_DEFAULT_COMMAND="fd --hidden --strip-cwd-prefix --exclude .git"
-export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-export FZF_ALT_C_COMMAND="fd --type=d --hidden --strip-cwd-prefix --exclude .git"
-
-# Preview settings
-show_file_or_dir_preview="if [ -d {} ]; then eza --tree --color=always {} | head -200; else bat -n --color=always --line-range :500 {}; fi"
-
-export FZF_CTRL_T_OPTS="--preview '$show_file_or_dir_preview'"
-export FZF_ALT_C_OPTS="--preview 'eza --tree --color=always {} | head -200'"
-
-# FZF completion customization
-_fzf_compgen_path() {
-  fd --hidden --exclude .git . "$1"
-}
-
-_fzf_compgen_dir() {
-  fd --type=d --hidden --exclude .git . "$1"
-}
-
-_fzf_comprun() {
-  local command=$1
-  shift
-
-  case "$command" in
-    cd)           fzf --preview 'eza --tree --color=always {} | head -200' "$@" ;;
-    export|unset) fzf --preview "eval 'echo \${}'"         "$@" ;;
-    ssh)          fzf --preview 'dig {}'                   "$@" ;;
-    *)            fzf --preview "$show_file_or_dir_preview" "$@" ;;
-  esac
-}
-
-# FZF Git integration
-# source ~/fzf-git.sh/fzf-git.sh
-
-# ============================================================================
-# ZOXIDE (BETTER CD)
-# ============================================================================
-
-eval "$(zoxide init zsh)"
-
-# ============================================================================
-# ALIASES
-# ============================================================================
-
-# Modern replacements
-alias ls="eza --icons=always"
-alias cat="bat"
-alias cd="z"
-alias grep="rg"
-
-# Utilities
-alias cp="cp -iv"
-alias k="kubectl"
-alias nvim="nvim --listen ./nvim.sock"
-
-
-# Compression
-compress() { tar -czf "${1%/}.tar.gz" "${1%/}"; }
-alias decompress="tar -xzf"
-
-# Write iso file to sd card
-iso2sd() {
-  if [ $# -ne 2 ]; then
-    echo "Usage: iso2sd <input_file> <output_device>"
-    echo "Example: iso2sd ~/Downloads/ubuntu-25.04-desktop-amd64.iso /dev/sda"
-    echo -e "\nAvailable SD cards:"
-    lsblk -d -o NAME | grep -E '^sd[a-z]' | awk '{print "/dev/"$1}'
-  else
-    sudo dd bs=4M status=progress oflag=sync if="$1" of="$2"
-    sudo eject $2
-  fi
-}
-
-# Format an entire drive for a single partition using exFAT
-format-drive() {
-  if [ $# -ne 2 ]; then
-    echo "Usage: format-drive <device> <name>"
-    echo "Example: format-drive /dev/sda 'My Stuff'"
-    echo -e "\nAvailable drives:"
-    lsblk -d -o NAME -n | awk '{print "/dev/"$1}'
-  else
-    echo "WARNING: This will completely erase all data on $1 and label it '$2'."
-    read -rp "Are you sure you want to continue? (y/N): " confirm
-
-    if [[ "$confirm" =~ ^[Yy]$ ]]; then
-      sudo wipefs -a "$1"
-      sudo dd if=/dev/zero of="$1" bs=1M count=100 status=progress
-      sudo parted -s "$1" mklabel gpt
-      sudo parted -s "$1" mkpart primary 1MiB 100%
-
-      partition="$([[ $1 == *"nvme"* ]] && echo "${1}p1" || echo "${1}1")"
-      sudo partprobe "$1" || true
-      sudo udevadm settle || true
-
-      sudo mkfs.exfat -n "$2" "$partition"
-
-      echo "Drive $1 formatted as exFAT and labeled '$2'."
-    fi
-  fi
-}
-
-# Transcode a video to a good-balance 1080p that's great for sharing online
-transcode-video-1080p() {
-  ffmpeg -i $1 -vf scale=1920:1080 -c:v libx264 -preset fast -crf 23 -c:a copy ${1%.*}-1080p.mp4
-}
-
-# Transcode a video to a good-balance 4K that's great for sharing online
-transcode-video-4K() {
-  ffmpeg -i $1 -c:v libx265 -preset slow -crf 24 -c:a aac -b:a 192k ${1%.*}-optimized.mp4
-}
-
-# Transcode any image to JPG image that's great for shrinking wallpapers
-img2jpg() {
-  img="$1"
-  shift
-
-  magick "$img" $@ -quality 95 -strip ${img%.*}-optimized.jpg
-}
-
-# Transcode any image to JPG image that's great for sharing online without being too big
-img2jpg-small() {
-  img="$1"
-  shift
-
-  magick "$img" $@ -resize 1080x\> -quality 95 -strip ${img%.*}-optimized.jpg
-}
-
-# Transcode any image to compressed-but-lossless PNG
-img2png() {
-  img="$1"
-  shift
-
-  magick "$img" $@ -strip -define png:compression-filter=5 \
-    -define png:compression-level=9 \
-    -define png:compression-strategy=1 \
-    -define png:exclude-chunk=all \
-    "${img%.*}-optimized.png"
-}
-# Platform-specific
-if [[ "$(uname)" == "Linux" ]]; then
-    alias open="xdg-open"
-fi
-
-# Platform-specific theme sourcing
-if [[ "$(uname)" == "Linux" ]]; then
-    source /usr/share/zsh-theme-powerlevel10k/powerlevel10k.zsh-theme
-elif [[ "$(uname)" == "Darwin" ]]; then
-    source /opt/homebrew/share/powerlevel10k/powerlevel10k.zsh-theme
-fi
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-

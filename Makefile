@@ -19,12 +19,12 @@ uninstall:
 	./uninstall.sh
 
 stow-config:
-	cd config && stow git tmux zsh scripts ghostty
+	cd config && stow git tmux zsh scripts ghostty starship
 	rm -rf ~/.config/nvim
 	ln -sf $(PWD)/config/nvim/.config/nvim ~/.config/nvim
 
 unstow-config:
-	cd config && stow -D git tmux zsh scripts ghostty
+	cd config && stow -D git tmux zsh scripts ghostty starship
 	rm -f ~/.config/nvim
 
 stow-hyprland:

@@ -2,6 +2,7 @@
 
 This README explains what each package in `omarchy-base.packages` and `omarchy-yay.packages` does.
 
+- **ttf-fira-code** (font): Font for coding.
 - **grim** (screenshots): Grab images from a Wayland compositor, allowing screenshots of windows or the entire screen in Wayland environments.
 - **satty** (screenshots): A screenshot annotation tool, similar to Paint, for editing, annotating, and enhancing screenshots with text, shapes, and effects.
 - **slurp** (screenshots): Select a region in a Wayland compositor, useful for defining rectangular areas for screenshots or other interactive operations.
@@ -71,7 +72,6 @@ This README explains what each package in `omarchy-base.packages` and `omarchy-y
 - **noto-fonts-cjk**: Google Noto CJK fonts.
 - **noto-fonts-emoji**: Google Noto Color Emoji font.
 - **noto-fonts-extra**: Additional variants of Google Noto fonts.
-- **woff2-font-awesome**: Font Awesome icon font in WOFF2 format.
 - **plymouth**: A graphical boot splash screen with kernel mode-setting support.
 - **plocate**: A much faster locate.
 - **power-profiles-daemon**: Makes power profiles handling available over D-Bus.
