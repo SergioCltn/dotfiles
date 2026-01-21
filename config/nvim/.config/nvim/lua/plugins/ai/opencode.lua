@@ -33,12 +33,12 @@ return {
     --   return require('opencode').operator '@this ' .. '_'
     -- end, { expr = true, desc = 'Add line to opencode' })
 
-    vim.keymap.set('n', '<Up>', function()
-      require('opencode').command 'session.half.page.up'
-    end, { desc = 'opencode half page up' })
-    vim.keymap.set('n', '<Down>', function()
-      require('opencode').command 'session.half.page.down'
-    end, { desc = 'opencode half page down' })
+    -- vim.keymap.set('n', '<Up>', function()
+    --   require('opencode').command 'session.half.page.up'
+    -- end, { desc = 'opencode half page up' })
+    -- vim.keymap.set('n', '<Down>', function()
+    --   require('opencode').command 'session.half.page.down'
+    -- end, { desc = 'opencode half page down' })
 
     -- You may want these if you stick with the opinionated "<C-a>" and "<C-x>" above — otherwise consider "<leader>o".
     vim.keymap.set('n', '+', '<C-a>', { desc = 'Increment', noremap = true })
