@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Launch pacman system update in a TUI window
+
+exec $HOME/.local/bin/hyprland-launch-or-focus-tui 'sudo pacman -Syu; echo; read -p "Press enter to close..."'

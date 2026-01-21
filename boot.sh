@@ -25,14 +25,14 @@ sudo pacman -Syu --noconfirm --needed git
 DOTFILES_REPO="${DOTFILES_REPO:-sergiocltn/dotfiles}"
 
 echo -e "\nCloning from: https://github.com/${DOTFILES_REPO}.git"
-rm -rf ~/.local/share/omarchy/
+rm -rf ~/dotfiles/
 git clone "https://github.com/${DOTFILES_REPO}.git" ~/dotfiles >/dev/null
 
-# Use custom branch if instructed, otherwise default to master
+# Use custom branch if instructed, otherwise default to main
 DOTFILES_REF="${DOTFILES_REF:-main}"
-if [[ $DOTFILES_REF != "master" ]]; then
+if [[ $DOTFILES_REF != "main" ]]; then
   echo -e "\e[32mUsing branch: $DOTFILES_REF\e[0m"
-  cd ~/.local/share/omarchy
+  cd ~/dotfiles
   git fetch origin "${DOTFILES_REF}" && git checkout "${DOTFILES_REF}"
   cd -
 fi

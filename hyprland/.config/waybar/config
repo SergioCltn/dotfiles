@@ -7,6 +7,7 @@
   "modules-left": ["custom/appmenu", "hyprland/workspaces"],
   "modules-center": ["clock", "custom/screenrecording-indicator"],
   "modules-right": [
+    "custom/pacman",
     "bluetooth",
     "network",
     "pulseaudio",
@@ -163,6 +164,17 @@
     //"tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
     "on-click": "hyprlauncher",
     "format": "Apps"
+  },
+  "custom/pacman": {
+    "format": "{icon} {text}",
+    "format-icons": {
+      "pending-updates": "󰏔",
+      "updated": "󰏗"
+    },
+    "return-type": "json",
+    "exec": "count=$(checkupdates 2>/dev/null | wc -l); if [ \"$count\" -gt 0 ]; then echo '{\"text\":\"'$count'\",\"alt\":\"pending-updates\",\"tooltip\":\"'$count' updates available\"}'; else echo '{\"text\":\"\",\"alt\":\"updated\",\"tooltip\":\"System up to date\"}'; fi",
+    "interval": 1800,
+    "on-click": "$HOME/.local/bin/hyprland-launch-updates"
   },
   "tray": {
     "icon-size": 12,
