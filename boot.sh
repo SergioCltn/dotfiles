@@ -21,7 +21,6 @@ echo -e "\n$ansi_art\n"
 
 sudo pacman -Syu --noconfirm --needed git
 
-# Use custom repo if specified, otherwise default to basecamp/omarchy
 DOTFILES_REPO="${DOTFILES_REPO:-sergiocltn/dotfiles}"
 
 echo -e "\nCloning from: https://github.com/${DOTFILES_REPO}.git"

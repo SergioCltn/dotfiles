@@ -58,7 +58,7 @@ start_install_log() {
 
   export DOTFILES_START_TIME=$(date '+%Y-%m-%d %H:%M:%S')
 
-  echo "=== Omarchy Installation Started: $DOTFILES_START_TIME ===" >>"$DOTFILES_INSTALL_LOG_FILE"
+  echo "=== Installation Started: $DOTFILES_START_TIME ===" >>"$DOTFILES_INSTALL_LOG_FILE"
   start_log_output
 }
 
@@ -68,7 +68,7 @@ stop_install_log() {
 
   if [[ -n ${DOTFILES_INSTALL_LOG_FILE:-} ]]; then
     DOTFILES_END_TIME=$(date '+%Y-%m-%d %H:%M:%S')
-    echo "=== Omarchy Installation Completed: $DOTFILES_END_TIME ===" >>"$DOTFILES_INSTALL_LOG_FILE"
+    echo "=== Installation Completed: $DOTFILES_END_TIME ===" >>"$DOTFILES_INSTALL_LOG_FILE"
     echo "" >>"$DOTFILES_INSTALL_LOG_FILE"
     echo "=== Installation Time Summary ===" >>"$DOTFILES_INSTALL_LOG_FILE"
 
@@ -96,7 +96,7 @@ stop_install_log() {
       DOTFILES_MINS=$((DOTFILES_DURATION / 60))
       DOTFILES_SECS=$((DOTFILES_DURATION % 60))
 
-      echo "Omarchy:     ${DOTFILES_MINS}m ${DOTFILES_SECS}s" >>"$DOTFILES_INSTALL_LOG_FILE"
+      echo "Installation:     ${DOTFILES_MINS}m ${DOTFILES_SECS}s" >>"$DOTFILES_INSTALL_LOG_FILE"
 
       if [ -n "$ARCH_DURATION" ]; then
         TOTAL_DURATION=$((ARCH_DURATION + DOTFILES_DURATION))
