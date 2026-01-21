@@ -16,9 +16,6 @@ export PATH="$PATH:$HOME/.local/bin"
 # NVM (NODE VERSION MANAGER)
 # ============================================================================
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # ============================================================================
 # OH-MY-ZSH CONFIGURATION
@@ -31,7 +28,11 @@ source $ZSH/oh-my-zsh.sh
 # ============================================================================
 # INITS
 # ============================================================================
-if command -v mise &> /dev/null; then
+if [[ "$(uname)" == "Darwin" ]]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+elif [[ "$(uname)" == "Linux" ]] && command -v mise &> /dev/null; then
   eval "$(mise activate zsh)"
 fi
 
