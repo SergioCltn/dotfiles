@@ -23,14 +23,12 @@ cups-pdf
 docker
 docker-buildx
 docker-compose
-dotnet-runtime-9.0
 evince
 eza
 fastfetch
 fd
 ffmpegthumbnailer
 exfatprogs
-fontconfig
 fzf
 ghostty
 github-cli
@@ -61,10 +59,6 @@ mpv
 nautilus
 man-db
 mako
-noto-fonts
-noto-fonts-cjk
-noto-fonts-emoji
-noto-fonts-extra
 plocate
 power-profiles-daemon
 zoxide
