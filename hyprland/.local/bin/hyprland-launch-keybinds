@@ -1,0 +1,5 @@
+#!/bin/bash
+
+# Launch keybindings viewer in a TUI window
+
+exec $HOME/.local/bin/hyprland-launch-tui $HOME/.local/bin/hyprland-show-keybinds

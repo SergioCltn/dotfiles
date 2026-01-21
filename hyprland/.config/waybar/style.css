@@ -157,6 +157,14 @@ tooltip {
   margin-left: 10px;
 }
 
+#custom-pacman {
+  margin-right: 15px;
+}
+
+#custom-pacman.pending {
+  color: #e0af68;
+}
+
 menu {
   border-radius: 15px;
   background: @menu_background;
