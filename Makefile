@@ -1,4 +1,4 @@
-.PHONY: install uninstall stow-config unstow-config stow-hyprland help
+.PHONY: install uninstall stow-config unstow-config stow-hyprland shell-setup help
 
 help:
 	@echo "Dotfiles Management"
@@ -8,7 +8,8 @@ help:
 	@echo "  make uninstall      - Unstow all dotfiles"
 	@echo "  make stow-config    - Stow config files (git, tmux, zsh, scripts, ghostty, nvim)"
 	@echo "  make unstow-config  - Unstow config files only"
-	@echo "  make stow-hyprland   - Stow Hyprland configuration only"
+	@echo "  make stow-hyprland  - Stow Hyprland configuration only"
+	@echo "  make shell-setup    - Install TPM, oh-my-zsh, plugins, set zsh as default"
 
 install:
 	chmod +x install.sh
@@ -29,3 +30,7 @@ unstow-config:
 
 stow-hyprland:
 	stow hyprland
+
+shell-setup:
+	chmod +x install/shell-setup.sh
+	./install/shell-setup.sh
