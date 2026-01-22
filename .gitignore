@@ -1,15 +1,9 @@
 # Vim/Neovim socket files
 *.sock
 
-# Backup files
-*~
-*.backup
-*.swp
-*.swo
-
 # OS-specific files
 .DS_Store
 Thumbs.db
 
-# Backup directories
-dotfiles_backup_*/
+# 
+lazy-lock.json

@@ -47,6 +47,15 @@ make stow-hyprland
 - symlinks everything under `hyprland/` into your home
 - sets up Hyprland, Waybar, mako, and the helper scripts in `~/.local/bin`
 
+### First-run setup
+
+```bash path=null start=null
+make first-run
+```
+
+- symlinks resolv.conf (actually this looks like it's not needed it already is linked beforehand) 
+- set up firewall ufw
+
 ### Shell extras
 
 ```bash path=null start=null

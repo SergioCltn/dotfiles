@@ -34,3 +34,7 @@ stow-hyprland:
 shell-setup:
 	chmod +x install/shell-setup.sh
 	./install/shell-setup.sh
+
+first-run:
+	./install/first-run/all.sh
+
