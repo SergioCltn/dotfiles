@@ -1,3 +1,8 @@
+# cups
+# cups-browsed
+# cups-filters
+# cups-pdf
+# kdenlive
 discord
 pacman-contrib
 starship
@@ -16,10 +21,6 @@ bluetui
 bolt
 btop
 clang
-cups
-cups-browsed
-cups-filters
-cups-pdf
 docker
 docker-buildx
 docker-compose
@@ -49,7 +50,6 @@ imv
 iwd
 jq
 inetutils
-kdenlive
 lazydocker
 lazygit
 less

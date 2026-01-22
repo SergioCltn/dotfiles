@@ -154,14 +154,14 @@
     "tooltip": false
   },
   "custom/screenrecording-indicator": {
-    "on-click": "$HOME/.local.bin/hyprland-cmd-screenrecord",
+    "on-click": "$HOME/.local/bin/hyprland-cmd-screenrecord",
     "exec": "$HOME/.config/waybar/indicators/screen-recording.sh",
     "signal": 8,
     "return-type": "json"
   },
   "custom/appmenu": {
-    //"on-click-right": "~/.config/hypr/scripts/keybindings.sh",
-    //"tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings"
+    "on-click-right": "~/.local/bin/hyprland-launch-keybinds",
+    "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings",
     "on-click": "hyprlauncher",
     "format": "Apps"
   },
