@@ -1,60 +1,84 @@
 #!/bin/bash
 
-# Improved pacman update display
-
 clear
 
-echo -e "\033[1;34m══════════════════════════════════════\033[0m"
-echo -e "\033[1;34m       System Update Check\033[0m"
-echo -e "\033[1;34m══════════════════════════════════════\033[0m"
-echo
+# Check if gum and checkupdates are available
+if ! command -v gum &>/dev/null; then
+  echo "Error: gum not found"
+  echo "Install with: sudo pacman -S gum"
+  echo
+  read -p "Press enter to close..."
+  exit 1
+fi
 
-# Check if checkupdates is available
 if ! command -v checkupdates &>/dev/null; then
-  echo -e "\033[1;31mError: checkupdates not found\033[0m"
+  gum style --foreground 196 --bold "Error: checkupdates not found"
   echo "Install with: sudo pacman -S pacman-contrib"
   echo
   read -p "Press enter to close..."
   exit 1
 fi
 
-echo -e "\033[1;33mChecking for updates...\033[0m"
-echo
+gum style --border double --border-foreground 39 --padding "1 2" --margin "1 0" --bold "System Update Check"
 
-updates=$(checkupdates 2>/dev/null)
-count=$(echo "$updates" | grep -c . 2>/dev/null || echo "0")
+gum spin --spinner dot --title "Checking for updates..." -- sh -c 'checkupdates 2>/dev/null > /tmp/updates.tmp'
+
+updates=$(cat /tmp/updates.tmp 2>/dev/null)
+count=$(echo "$updates" | grep -c '[^[:space:]]' 2>/dev/null || echo "0")
 
 if [ -z "$updates" ] || [ "$count" -eq 0 ]; then
-  echo -e "\033[1;32m✓ System is up to date!\033[0m"
+  gum style --foreground 46 --bold "✓ System is up to date!"
   echo
   read -p "Press enter to close..."
+  rm -f /tmp/updates.tmp
   exit 0
 fi
 
-echo -e "\033[1;33m$count package(s) available for update:\033[0m"
+gum style --foreground 226 --bold "$count package(s) available for update:"
 echo
 echo "$updates" | while read -r line; do
+  [ -z "$line" ] && continue
   pkg=$(echo "$line" | awk '{print $1}')
-  ver=$(echo "$line" | awk '{print $2 " → " $4}')
-  echo -e "  \033[0;36m$pkg\033[0m $ver"
+  old_ver=$(echo "$line" | awk '{print $2}')
+  new_ver=$(echo "$line" | awk '{print $4}')
+  echo "  $(gum style --foreground 51 "$pkg") $(gum style --foreground 245 "$old_ver → $new_ver")"
 done
 
 echo
-echo -e "\033[1;34m══════════════════════════════════════\033[0m"
-echo
-
-read -p "Proceed with update? [Y/n] " confirm
-confirm=${confirm:-Y}
-
-if [[ "$confirm" =~ ^[Yy]$ ]]; then
+if gum confirm "Proceed with update?"; then
   echo
+  gum style --foreground 39 --bold "Updating packages..."
+  echo
+  echo "$updates" | while read -r line; do
+    [ -z "$line" ] && continue
+    pkg=$(echo "$line" | awk '{print $1}')
+    echo "  → $pkg"
+  done
+  echo
+  
   sudo pacman -Syu
+  
   echo
-  echo -e "\033[1;32m✓ Update complete!\033[0m"
+  gum style --foreground 46 --bold "✓ Update complete!"
+  echo
+  
+  # Show what was updated
+  gum style --foreground 39 --bold "Updated packages:"
+  echo
+  echo "$updates" | while read -r line; do
+    [ -z "$line" ] && continue
+    pkg=$(echo "$line" | awk '{print $1}')
+    new_ver=$(echo "$line" | awk '{print $4}')
+    echo "  $(gum style --foreground 46 "✓") $(gum style --foreground 51 "$pkg") $(gum style --foreground 245 "$new_ver")"
+  done
+  
+  # Refresh waybar pacman module
+  pkill -RTMIN+9 waybar
 else
   echo
-  echo -e "\033[1;33m⊘ Update cancelled\033[0m"
+  gum style --foreground 226 --bold "⊘ Update cancelled"
 fi
 
+rm -f /tmp/updates.tmp
 echo
 read -p "Press enter to close..."

@@ -1,6 +1,7 @@
 # Pacman Package Descriptions
 
-- **pacman-contrib**
+- **hyprland-preview-share-picker-git** : Adds preview of what's it's going to be shared when sharing or recording the screen.
+- **pacman-contrib** : This adds checkupdates.
 - **grim** (screenshots): Grab images from a Wayland compositor, allowing screenshots of windows or the entire screen in Wayland environments.
 - **satty** (screenshots): A screenshot annotation tool, similar to Paint, for editing, annotating, and enhancing screenshots with text, shapes, and effects.
 - **slurp** (screenshots): Select a region in a Wayland compositor, useful for defining rectangular areas for screenshots or other interactive operations.

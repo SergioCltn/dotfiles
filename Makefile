@@ -31,6 +31,9 @@ unstow-config:
 stow-hyprland:
 	stow hyprland
 
+setup-hibernate:
+	./hyprland/.local/bin/hyprland-hibernate-setup
+
 shell-setup:
 	chmod +x install/shell-setup.sh
 	./install/shell-setup.sh
