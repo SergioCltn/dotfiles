@@ -64,3 +64,6 @@ make shell-setup
 
 - runs `install/shell-setup.sh`
 - installs tmux plugin manager, oh-my-zsh, Zsh plugins, and sets Zsh as default shell (where supported)
+
+### FIXES FOR T14
+- F4 key stays light up all the time, for that alsamixer is needed, here is where it was solved https://github.com/alsa-project/alsa-ucm-conf/issues/100#issuecomment-1712564699
