@@ -71,7 +71,7 @@ return {
       desc = '[C]opilot [S]uggest',
     },
     {
-      '<M-CR>',
+      '<C-CR>',
       mode = 'i',
       function()
         require('copilot.suggestion').accept()
