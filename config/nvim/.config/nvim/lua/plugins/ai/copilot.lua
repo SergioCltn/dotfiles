@@ -23,21 +23,7 @@ return {
   enabled = copilot_enabled,
   event = 'InsertEnter',
   build = ':Copilot auth',
-  init = function()
-    if copilot_enabled() then
-      return
-    end
 
-    vim.schedule(function()
-      local pinned = vim.fn.expand '$HOME' .. '/.nvm/versions/node/v22.22.0/bin/node'
-      vim.api.nvim_echo({
-        {
-          ('[copilot] disabled: node executable not found (tried %s and $PATH)'):format(pinned),
-          'WarningMsg',
-        },
-      }, true, {})
-    end)
-  end,
   opts = function()
     local opts = {
       suggestion = {
