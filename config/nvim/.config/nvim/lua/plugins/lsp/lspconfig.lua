@@ -120,8 +120,25 @@ return {
         eslint = {},
         yamlls = {},
         eslint_d = {},
-        ts_ls = {},
+        ts_ls = {
+          on_attach = function(client, bufnr)
+            client.server_capabilities.documentFormattingProvider = false
+            client.server_capabilities.documentRangeFormattingProvider = false
+          end,
+        },
         zls = {},
+        pyright = {},
+        ruff = {
+          init_options = {
+            settings = {
+              organizeImports = true,
+              fixAll = true,
+              lint = {
+                select = { 'E', 'F', 'I' },
+              },
+            },
+          },
+        },
         lua_ls = {
           settings = {
             Lua = {
@@ -148,16 +165,17 @@ return {
       })
       require('mason-tool-installer').setup { ensure_installed = ensure_installed }
 
+      -- Configure servers using the new vim.lsp.config() API (Neovim 0.11+)
+      for server_name, server_config in pairs(servers) do
+        local config = vim.tbl_deep_extend('force', {}, server_config)
+        config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
+        vim.lsp.config(server_name, config)
+      end
+
       require('mason-lspconfig').setup {
         ensure_installed = {},
         automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
-            require('lspconfig')[server_name].setup(server)
-          end,
-        },
+        automatic_enable = true,
       }
     end,
   },

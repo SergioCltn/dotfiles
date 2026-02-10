@@ -6,17 +6,7 @@ return { -- Autoformat
     {
       '<leader>f',
       function()
-        if vim.bo.filetype == 'javascript' then
-          -- Use eslint --fix for javascript files
-          vim.lsp.buf.format {
-            filter = function(client)
-              return client.name ~= 'ts_ls'
-            end,
-          }
-          return
-        end
-
-        -- require('conform').format { async = true, lsp_format = 'fallback' }
+        require('conform').format { async = true, lsp_format = 'fallback' }
       end,
       mode = '',
       desc = '[F]ormat buffer',
@@ -25,20 +15,11 @@ return { -- Autoformat
   opts = {
     notify_on_error = false,
     format_on_save = function(bufnr)
-      -- Couldn't find a better way to disable ts_ls formatting for js files
-      if vim.bo.filetype == 'javascript' then
-        vim.lsp.buf.format {
-          filter = function(client)
-            return client.name ~= 'ts_ls'
-          end,
-        }
-        return
-      end
       -- Disable "format_on_save lsp_fallback" for languages that don't
       -- have a well standardized coding style. You can add additional
       -- languages here or re-enable it for the disabled ones.
       -- local disable_filetypes = { c = true, cpp = true }
-      local disable_filetypes = { c = true, javascript = true }
+      local disable_filetypes = { c = true }
       local lsp_format_opt
       if disable_filetypes[vim.bo[bufnr].filetype] then
         lsp_format_opt = 'never'
