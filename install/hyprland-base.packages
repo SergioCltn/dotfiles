@@ -3,6 +3,8 @@
 # cups-filters
 # cups-pdf
 # kdenlive
+inter-font
+fontconfig
 discord
 pacman-contrib
 starship
