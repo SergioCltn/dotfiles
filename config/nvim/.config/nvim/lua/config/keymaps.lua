@@ -7,7 +7,9 @@ vim.g.maplocalleader = ' '
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
-vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
+vim.keymap.set('n', '<Esc>', function()
+  vim.cmd.nohlsearch()
+end)
 
 -- Diagnostic keymaps
 vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -36,10 +38,18 @@ vim.keymap.set('n', '<C-j>', '<C-w><C-j>', { desc = 'Move focus to the lower win
 vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper window' })
 
 -- Move lines in visual mode
-vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+vim.keymap.set('v', 'J', function()
+  vim.cmd "move '>+1"
+  vim.cmd.normal { 'gv=gv', bang = true }
+end)
+vim.keymap.set('v', 'K', function()
+  vim.cmd "move '<-2"
+  vim.cmd.normal { 'gv=gv', bang = true }
+end)
 
 -- vim.keymap.set('n', '<Down>', '<cmd>cnext<CR>')
 -- vim.keymap.set('n', '<Up>', '<cmd>cprev<CR>')
 --
-vim.keymap.set('n', '<leader>x', ':source %<CR>', { desc = 'Move focus to the left window', silent = true })
+vim.keymap.set('n', '<leader>x', function()
+  vim.cmd.source '%'
+end, { desc = 'Source current file', silent = true })

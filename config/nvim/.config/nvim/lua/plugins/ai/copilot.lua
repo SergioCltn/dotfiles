@@ -48,37 +48,5 @@ return {
 
     return opts
   end,
-  keys = {
-    {
-      '<leader>cs',
-      function()
-        require('copilot.panel').open { position = 'right', ratio = 0.2 }
-      end,
-      desc = '[C]opilot [S]uggest',
-    },
-    {
-      '<C-CR>',
-      mode = 'i',
-      function()
-        require('copilot.suggestion').accept()
-      end,
-      desc = '[C]opilot [S]uggest',
-    },
-    {
-      '<C-j>',
-      mode = 'i',
-      function()
-        require('copilot.suggestion').prev()
-      end,
-      desc = '[C]opilot [S]uggest',
-    },
-    {
-      '<C-k>',
-      mode = 'i',
-      function()
-        require('copilot.suggestion').next()
-      end,
-      desc = '[C]opilot [S]uggest',
-    },
-  },
+  keys = {},
 }
