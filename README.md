@@ -26,8 +26,16 @@ make stow-config
 ```
 
 - symlinks dotfiles from `config/` into your `$HOME`
-- covers git, tmux, zsh, scripts, ghostty, starship
+- covers git, tmux, zsh, scripts, ghostty, starship, opencode
 - replaces `~/.config/nvim` with the Neovim config from this repo
+
+The opencode config expects `STITCH_API_KEY` to be set in your environment for
+the Stitch MCP server.
+
+On an existing machine with unmanaged opencode files, move
+`~/.config/opencode/opencode.jsonc` and `~/.config/opencode/skills` aside before
+running `make stow-config`, then copy any local-only values back into your
+environment.
 
 ### Unstow configs
 

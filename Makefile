@@ -6,7 +6,7 @@ help:
 	@echo "Usage:"
 	@echo "  make install        - Install all dependencies and stow dotfiles"
 	@echo "  make uninstall      - Unstow all dotfiles"
-	@echo "  make stow-config    - Stow config files (git, tmux, zsh, scripts, ghostty, nvim)"
+	@echo "  make stow-config    - Stow config files (git, tmux, zsh, scripts, ghostty, starship, opencode, nvim)"
 	@echo "  make unstow-config  - Unstow config files only"
 	@echo "  make stow-hyprland  - Stow Hyprland configuration only"
 	@echo "  make shell-setup    - Install TPM, oh-my-zsh, plugins, set zsh as default"
@@ -21,12 +21,12 @@ uninstall:
 	./uninstall.sh
 
 stow-config:
-	cd config && stow git tmux zsh scripts ghostty starship
+	cd config && stow git tmux zsh scripts ghostty starship opencode
 	rm -rf ~/.config/nvim
 	ln -sf $(PWD)/config/nvim/.config/nvim ~/.config/nvim
 
 unstow-config:
-	cd config && stow -D git tmux zsh scripts ghostty starship
+	cd config && stow -D git tmux zsh scripts ghostty starship opencode
 	rm -f ~/.config/nvim
 
 stow-hyprland:
@@ -48,10 +48,9 @@ test-stow:
 	@echo "✓ stow is installed"
 	@echo ""
 	@echo "Testing config/..."
-	@cd config && { stow -n git tmux zsh scripts ghostty starship 2>&1 | grep -v "in simulation mode" | grep -E "(CONFLICT|ERROR|cannot)" && { echo "✗ Stow conflicts detected!"; exit 1; } || echo "✓ No stow conflicts in config"; }
+	@cd config && { stow -n git tmux zsh scripts ghostty starship opencode 2>&1 | grep -v "in simulation mode" | grep -E "(CONFLICT|ERROR|cannot)" && { echo "✗ Stow conflicts detected!"; exit 1; } || echo "✓ No stow conflicts in config"; }
 	@echo ""
 	@echo "Testing hyprland/..."
 	@{ stow -n hyprland 2>&1 | grep -v "in simulation mode" | grep -E "(CONFLICT|ERROR|cannot)" && { echo "✗ Stow conflicts detected!"; exit 1; } || echo "✓ No stow conflicts in hyprland"; }
 	@echo ""
 	@echo "All stow tests passed!"
-
