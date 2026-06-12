@@ -8,6 +8,7 @@ set -euo pipefail
 
 # ─── Config ────────────────────────────────────────────────────────────────
 LOGFILE="${HOME}/.tmux/nvim-remote.log"
+mkdir -p "$(dirname "$LOGFILE")"
 
 # ─── Helper functions ──────────────────────────────────────────────────────
 log() {
@@ -22,26 +23,45 @@ die() {
     exit 0
 }
 
+open_url() {
+    local url="$1"
+
+    if command -v xdg-open >/dev/null 2>&1; then
+        nohup xdg-open "$url" >/dev/null 2>&1 &
+    elif command -v open >/dev/null 2>&1; then
+        nohup open "$url" >/dev/null 2>&1 &
+    else
+        die "No URL opener found for: $url"
+    fi
+
+    log info "Opened URL: $url"
+    tmux display-message "Opened URL: $url"
+}
+
+nvim_socket_path() {
+    local dir="$1"
+    local root digest
+
+    if root="$(git -C "$dir" rev-parse --show-toplevel 2>/dev/null)"; then
+        :
+    else
+        root="$(cd "$dir" && pwd -P)"
+    fi
+
+    if command -v sha1sum >/dev/null 2>&1; then
+        digest="$(printf '%s' "$root" | sha1sum | cut -d' ' -f1)"
+    else
+        digest="$(printf '%s' "$root" | shasum | cut -d' ' -f1)"
+    fi
+
+    printf '%s/nvim-%s.sock\n' "${XDG_RUNTIME_DIR:-/tmp}" "$digest"
+}
+
 # ─── Main logic ────────────────────────────────────────────────────────────
 CURRENT_PANE_PATH=$(tmux display-message -p '#{pane_current_path}')
 log debug "Current pane path: $CURRENT_PANE_PATH"
 
-NVIM_SOCKET="${CURRENT_PANE_PATH%/}/nvim.sock"
-
-if [[ ! -S "$NVIM_SOCKET" ]]; then
-    # Try one level up (common when inside a git worktree subdirectory)
-    ALT_SOCKET="${CURRENT_PANE_PATH%/*}/nvim.sock"
-    if [[ -S "$ALT_SOCKET" ]]; then
-        NVIM_SOCKET="$ALT_SOCKET"
-        log info "Found nvim socket one directory up: $NVIM_SOCKET"
-    else
-        die "No Neovim server socket found at $NVIM_SOCKET (or parent dir)"
-    fi
-fi
-
-log debug "Using NVIM_SOCKET: $NVIM_SOCKET"
-
-# ─── Get content from tmux buffer and find a valid path ───────────────────
+# ─── Get content from tmux buffer and open URL or file ─────────────────────
 if ! buffer_content=$(tmux show-buffer 2>/dev/null); then
     die "tmux show-buffer failed (buffer probably empty)"
 fi
@@ -52,11 +72,23 @@ fi
 
 log debug "Got buffer content: '$buffer_content'"
 
+if url=$(printf '%s\n' "$buffer_content" | grep -Eom1 'https?://[^[:space:]<>"'"'"']+'); then
+    while [[ -n "$url" ]]; do
+        case "${url: -1}" in
+            ')' | ',' | '.' | ';') url="${url%?}" ;;
+            *) break ;;
+        esac
+    done
+    open_url "$url"
+    exit 0
+fi
+
 # Use grep with a regex to extract potential file paths from the buffer.
 # A path is considered a sequence of alphanumeric chars, and ./_~-
 path_candidates=$(echo "$buffer_content" | grep -oE "[a-zA-Z0-9./_~-]+")
 
 path=""
+path_for_open=""
 for candidate in $path_candidates; do
     # The candidate might have a `~` that needs to be expanded.
     if [[ "${candidate:0:1}" == "~" ]]; then
@@ -76,6 +108,7 @@ for candidate in $path_candidates; do
 
     if [[ -e "$path_for_check_no_lines" ]]; then
         path="$candidate"
+        path_for_open="$path_for_check_no_lines"
         log info "Found existing file path in buffer: '$path'"
         break
     fi
@@ -91,13 +124,32 @@ if [[ ${#path} -gt 400 ]]; then
     log info "Selection is very long (${#path} chars) — sending anyway"
 fi
 
+NVIM_SOCKET="$(nvim_socket_path "$CURRENT_PANE_PATH")"
+
+if [[ ! -S "$NVIM_SOCKET" ]]; then
+    OLD_SOCKET="${CURRENT_PANE_PATH%/}/nvim.sock"
+    OLD_PARENT_SOCKET="${CURRENT_PANE_PATH%/*}/nvim.sock"
+
+    if [[ -S "$OLD_SOCKET" ]]; then
+        NVIM_SOCKET="$OLD_SOCKET"
+        log info "Using legacy cwd socket: $NVIM_SOCKET"
+    elif [[ -S "$OLD_PARENT_SOCKET" ]]; then
+        NVIM_SOCKET="$OLD_PARENT_SOCKET"
+        log info "Using legacy parent socket: $NVIM_SOCKET"
+    else
+        die "No Neovim server socket found at $NVIM_SOCKET"
+    fi
+fi
+
+log debug "Using NVIM_SOCKET: $NVIM_SOCKET"
+
 # ─── Try to send to nvim ───────────────────────────────────────────────────
-if nvim --server "$NVIM_SOCKET" --remote-send "<Cmd>edit $path<CR>" 2>/dev/null; then
+if nvim --server "$NVIM_SOCKET" --remote "$path_for_open" 2>/dev/null; then
     log info "Successfully sent to nvim: ${path:0:60}${path:60:+...}."
 else
-    local rc=$?
+    rc=$?
     log ERROR "nvim --remote failed (exit code $rc)"
-    log debug "Command was: nvim --server '$NVIM_SOCKET' --remote '$path'"
+    log debug "Command was: nvim --server '$NVIM_SOCKET' --remote '$path_for_open'"
     exit $rc
 fi
 

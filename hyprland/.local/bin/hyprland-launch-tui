@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Launch the TUI command passed in as an argument in the default terminal with an org.hyprland.COMMAND app id for styling.

@@ -154,7 +154,7 @@
     "tooltip": false
   },
   "custom/screenrecording-indicator": {
-    "on-click": "$HOME/.local/bin/hyprland-cmd-screenrecord",
+    "on-click": "$HOME/.local/bin/hyprland-screenrecord",
     "exec": "$HOME/.config/waybar/indicators/screen-recording.sh",
     "signal": 8,
     "return-type": "json"

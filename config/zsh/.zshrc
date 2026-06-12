@@ -22,7 +22,9 @@ export PATH="$PATH:$HOME/.local/bin"
 # ============================================================================
 
 plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
-source $ZSH/oh-my-zsh.sh
+if [[ -s "$ZSH/oh-my-zsh.sh" ]]; then
+  source "$ZSH/oh-my-zsh.sh"
+fi
 
 
 # ============================================================================
@@ -44,7 +46,9 @@ if command -v zoxide &> /dev/null; then
   eval "$(zoxide init zsh)"
 fi
 
-eval "$(fzf --zsh)"
+if command -v fzf &> /dev/null; then
+  eval "$(fzf --zsh)"
+fi
 
 # ============================================================================
 # ALIASES
@@ -70,7 +74,6 @@ alias cat="bat"
 alias grep="rg"
 alias cp="cp -iv"
 alias k="kubectl"
-alias nvim="nvim --listen ./nvim.sock"
 
 # Directories
 alias ..='cd ..'
@@ -84,6 +87,24 @@ fzfpacman() { pacman -Sql | fzf --preview 'pacman -Si {}' \
 # ============================================================================
 # FUNCTIONS
 # ============================================================================
+_nvim_socket_path() {
+  local root digest
+
+  root="$(git rev-parse --show-toplevel 2>/dev/null || pwd -P)"
+  if command -v sha1sum &> /dev/null; then
+    digest="$(printf '%s' "$root" | sha1sum | cut -d' ' -f1)"
+  else
+    digest="$(printf '%s' "$root" | shasum | cut -d' ' -f1)"
+  fi
+
+  printf '%s/nvim-%s.sock\n' "${XDG_RUNTIME_DIR:-/tmp}" "$digest"
+}
+
+unalias nvim 2>/dev/null
+nvim() {
+  command nvim --listen "$(_nvim_socket_path)" "$@"
+}
+
 compress() { tar -czf "${1%/}.tar.gz" "${1%/}"; }
 alias decompress="tar -xzf"
 

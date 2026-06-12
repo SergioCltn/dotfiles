@@ -1,4 +1,4 @@
-.PHONY: install uninstall stow-config unstow-config stow-hyprland shell-setup help test-stow
+.PHONY: install uninstall stow-config unstow-config stow-hyprland unstow-hyprland shell-setup help test-stow
 
 help:
 	@echo "Dotfiles Management"
@@ -17,13 +17,19 @@ install:
 	./install.sh
 
 uninstall:
-	chmod +x uninstall.sh
-	./uninstall.sh
+	$(MAKE) unstow-config
+	$(MAKE) unstow-hyprland
 
 stow-config:
 	cd config && stow git tmux zsh scripts ghostty starship opencode
-	rm -rf ~/.config/nvim
-	ln -sf $(PWD)/config/nvim/.config/nvim ~/.config/nvim
+	@if [ -e "$(HOME)/.config/nvim" ] && [ ! -L "$(HOME)/.config/nvim" ]; then \
+		echo "Error: $(HOME)/.config/nvim exists and is not a symlink"; \
+		echo "Move it aside before running make stow-config"; \
+		exit 1; \
+	fi
+	@mkdir -p "$(HOME)/.config"
+	rm -f "$(HOME)/.config/nvim"
+	ln -s "$(PWD)/config/nvim/.config/nvim" "$(HOME)/.config/nvim"
 
 unstow-config:
 	cd config && stow -D git tmux zsh scripts ghostty starship opencode
@@ -31,6 +37,9 @@ unstow-config:
 
 stow-hyprland:
 	stow hyprland
+
+unstow-hyprland:
+	stow -D hyprland
 
 setup-hibernate:
 	./hyprland/.local/bin/hyprland-hibernate-setup

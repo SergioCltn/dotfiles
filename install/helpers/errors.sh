@@ -43,6 +43,16 @@ show_failed_script_or_command() {
   fi
 }
 
+restore_mkinitcpio_hooks() {
+  if [[ -f /usr/share/libalpm/hooks/90-mkinitcpio-install.hook.disabled ]]; then
+    sudo mv /usr/share/libalpm/hooks/90-mkinitcpio-install.hook.disabled /usr/share/libalpm/hooks/90-mkinitcpio-install.hook
+  fi
+
+  if [[ -f /usr/share/libalpm/hooks/60-mkinitcpio-remove.hook.disabled ]]; then
+    sudo mv /usr/share/libalpm/hooks/60-mkinitcpio-remove.hook.disabled /usr/share/libalpm/hooks/60-mkinitcpio-remove.hook
+  fi
+}
+
 # Save original stdout and stderr for trap to use
 save_original_outputs() {
   exec 3>&1 4>&2
@@ -70,6 +80,7 @@ catch_errors() {
 
   stop_log_output
   restore_outputs
+  restore_mkinitcpio_hooks
 
   clear_logo
   show_cursor
@@ -97,7 +108,7 @@ catch_errors() {
 
     case "$choice" in
     "Retry installation")
-      bash ~/dotfiles/install.sh
+      bash "$DOTFILES_PATH/install.sh"
       break
       ;;
     "View full log")
@@ -117,6 +128,7 @@ catch_errors() {
 # Exit handler - ensures cleanup happens on any exit
 exit_handler() {
   local exit_code=$?
+  restore_mkinitcpio_hooks
 
   # Only run if we're exiting with an error and haven't already handled it
   if [[ $exit_code -ne 0 && $ERROR_HANDLING != true ]]; then

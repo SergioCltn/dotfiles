@@ -4,7 +4,7 @@
 # removes resume hook, and removes suspend-then-hibernate configuration.
 
 MKINITCPIO_CONF="/etc/mkinitcpio.conf.d/resume.conf"
-DOTFILES_PATH="${DOTFILES_PATH:-$HOME/dotfiles}}"
+DOTFILES_PATH="${DOTFILES_PATH:-$HOME/dotfiles}"
 
 # Check if hibernation is configured
 if [ ! -f "$MKINITCPIO_CONF" ] || ! grep -q "^HOOKS+=(resume)$" "$MKINITCPIO_CONF"; then

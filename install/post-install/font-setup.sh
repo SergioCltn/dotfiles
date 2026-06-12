@@ -4,7 +4,7 @@
 FONTCONFIG_DIR="$HOME/.config/fontconfig"
 FONTCONFIG_FILE="$FONTCONFIG_DIR/fonts.conf"
 
-log_info "Setting up Inter font configuration..."
+echo "Setting up Inter font configuration..."
 
 # Create fontconfig directory if it doesn't exist
 mkdir -p "$FONTCONFIG_DIR"
@@ -49,4 +49,4 @@ gsettings set org.gnome.desktop.interface document-font-name 'Inter 11' 2>/dev/n
 gsettings set org.gnome.desktop.interface monospace-font-name 'Inter 10' 2>/dev/null || true
 gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 11' 2>/dev/null || true
 
-log_info "Inter font configuration complete"
+echo "Inter font configuration complete"

@@ -9,7 +9,7 @@ if [[ ! -f /sys/power/image_size ]]; then
 fi
 
 
-DOTFILES_PATH="${DOTFILES_PATH:-$HOME/dotfiles}}"
+DOTFILES_PATH="${DOTFILES_PATH:-$HOME/dotfiles}"
 MKINITCPIO_CONF="/etc/mkinitcpio.conf.d/resume.conf"
 
 # Check if hibernation is already configured

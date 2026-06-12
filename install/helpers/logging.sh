@@ -53,8 +53,8 @@ stop_log_output() {
 }
 
 start_install_log() {
-  sudo touch "$DOTFILES_INSTALL_LOG_FILE"
-  sudo chmod 666 "$DOTFILES_INSTALL_LOG_FILE"
+  touch "$DOTFILES_INSTALL_LOG_FILE"
+  chmod 600 "$DOTFILES_INSTALL_LOG_FILE"
 
   export DOTFILES_START_TIME=$(date '+%Y-%m-%d %H:%M:%S')
 
