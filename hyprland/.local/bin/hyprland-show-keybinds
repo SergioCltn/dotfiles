@@ -2,31 +2,21 @@
 
 # Show Hyprland keybindings using fzf
 
-KEYBINDS_FILE="$HOME/.config/hypr/conf/keybinds.conf"
+hyprctl -j binds | \
+    jq -r '
+        def hasmod($bit): ((.modmask / $bit | floor) % 2) == 1;
+        def mods: [
+            if hasmod(64) then "SUPER" else empty end,
+            if hasmod(4) then "CTRL" else empty end,
+            if hasmod(1) then "SHIFT" else empty end,
+            if hasmod(8) then "ALT" else empty end
+        ];
 
-if [ ! -f "$KEYBINDS_FILE" ]; then
-    echo "Keybinds file not found: $KEYBINDS_FILE"
-    read -p "Press enter to close..."
-    exit 1
-fi
-
-# Parse bindd lines: bindd = MODS, KEY, DESCRIPTION, action...
-# Format output as: "MODS + KEY | DESCRIPTION"
-grep -E '^bindd\s*=' "$KEYBINDS_FILE" | \
-    sed 's/bindd\s*=\s*//' | \
-    awk -F', ' '{
-        mods = $1
-        key = $2
-        desc = $3
-        # Replace $mainMod with SUPER for display
-        gsub(/\$mainMod/, "SUPER", mods)
-        # Format: MODS+KEY → Description
-        if (mods == "") {
-            printf "%-20s  │  %s\n", key, desc
-        } else {
-            printf "%-20s  │  %s\n", mods " + " key, desc
-        }
-    }' | \
+        .[]
+        | select(.description != "")
+        | ((mods + [(.key // ("code:" + (.keycode | tostring)))]) | join(" + ")) as $keys
+        | "\($keys)  |  \(.description)"
+    ' | \
     fzf --ansi \
         --header="Hyprland Keybindings (ESC to close)" \
         --header-first \
@@ -36,4 +26,3 @@ grep -E '^bindd\s*=' "$KEYBINDS_FILE" | \
         --padding=1 \
         --no-info \
         --bind 'enter:abort'
-
