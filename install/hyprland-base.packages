@@ -34,6 +34,7 @@ ffmpegthumbnailer
 exfatprogs
 fzf
 ghostty
+shellcheck
 github-cli
 grim
 gum
@@ -47,6 +48,7 @@ hyprlock
 hyprpolkitagent
 hyprpicker
 hyprsunset
+cliphist
 imagemagick
 impala
 imv

@@ -32,6 +32,9 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm-app -- mako")
     hl.exec_cmd("uwsm-app -- waybar")
     hl.exec_cmd("uwsm-app -- hyprpaper")
+    hl.exec_cmd("uwsm-app -- hyprsunset")
+    hl.exec_cmd("uwsm-app -- wl-paste --type text --watch cliphist store")
+    hl.exec_cmd("uwsm-app -- wl-paste --type image --watch cliphist store")
     hl.exec_cmd("systemctl --user start hyprpolkitagent.service")
 
     hl.exec_cmd('gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"')
@@ -41,13 +44,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 11'")
 end)
 
--------------------
--- Environment
--------------------
-
-hl.env("XCURSOR_SIZE", "24")
-hl.env("HYPRCURSOR_SIZE", "24")
-hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
+-- Environment variables live in ~/.config/uwsm/env so every session app inherits them.
 
 -------------------
 -- Look And Feel
@@ -165,10 +162,12 @@ end
 
 -- Applications
 bind(mainMod .. " + T", hl.dsp.exec_cmd(binaries .. "/hyprland-launch-or-focus " .. terminal), "Open terminal")
+bind(mainMod .. " + SHIFT + T", hl.dsp.exec_cmd("uwsm-app -- " .. terminal), "Open new terminal")
 bind(mainMod .. " + B", hl.dsp.exec_cmd(binaries .. "/hyprland-launch-or-focus ^brave " .. browser), "Open browser")
 bind(mainMod .. " + F", hl.dsp.exec_cmd(fileManager), "Open file manager")
 bind(mainMod .. " + Space", hl.dsp.exec_cmd(menu), "Open app launcher")
 bind(mainMod .. " + SHIFT + slash", hl.dsp.exec_cmd(binaries .. "/hyprland-launch-keybinds"), "Show keybindings")
+bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("cliphist list | rofi -dmenu -p Clipboard -display-columns 2 | cliphist decode | wl-copy"), "Clipboard history")
 
 -- Window management
 bind(mainMod .. " + Q", hl.dsp.window.close(), "Close window")
@@ -251,7 +250,9 @@ bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"), "Toggle media pla
 bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"), "Previous media", { locked = true })
 
 -- Screenshots
-bind("CTRL + SHIFT + 4", hl.dsp.exec_cmd(binaries .. "/hyprland-cmd-screenshot smart clipboard"), "Screenshot to clipboard")
+bind("Print", hl.dsp.exec_cmd(binaries .. "/hyprland-cmd-screenshot smart"), "Screenshot and edit")
+bind("CTRL + SHIFT + 3", hl.dsp.exec_cmd(binaries .. "/hyprland-cmd-screenshot fullscreen clipboard"), "Screenshot screen to clipboard")
+bind("CTRL + SHIFT + 4",hl.dsp.exec_cmd(binaries .. "/hyprland-cmd-screenshot smart clipboard"), "Screenshot to clipboard")
 bind("CTRL + SHIFT + 5", hl.dsp.exec_cmd(binaries .. "/hyprland-screenrecord"), "Screen record")
 
 -------------------

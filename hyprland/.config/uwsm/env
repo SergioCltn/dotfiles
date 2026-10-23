@@ -1,0 +1,4 @@
+# Sourced by uwsm at session start; exported to every app in the session.
+export XCURSOR_SIZE=24
+export HYPRCURSOR_SIZE=24
+export QT_QPA_PLATFORMTHEME=qt6ct

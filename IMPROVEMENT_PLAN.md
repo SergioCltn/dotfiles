@@ -43,14 +43,14 @@
   - Keep base packages separate from hardware-specific packages like Broadcom drivers.
 - [ ] Quote shell variables consistently.
   - Focus on paths and command arguments in installer scripts and Hyprland helpers.
-- [ ] Avoid `eval` in `hyprland-launch-or-focus`.
+- [x] Avoid `eval` in `hyprland-launch-or-focus`.
   - Use explicit command arguments or arrays instead.
 
 ## Priority 4: Add Checks And Tooling
 
 - [ ] Add a `make check` target.
   - Include `bash -n`, `shellcheck`, `shfmt`, `stylua`, and config validation where practical.
-- [ ] Add `shellcheck` to the package list.
+- [x] Add `shellcheck` to the package list.
   - This allows local validation of shell scripts.
 - [ ] Keep `make test-stow` non-destructive and reliable.
   - Ensure it passes on a machine after following documented setup steps.

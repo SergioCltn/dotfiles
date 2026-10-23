@@ -8,6 +8,7 @@ if (($# == 0)); then
 fi
 
 APP_ID="org.hyprland.$(basename "$1")"
-LAUNCH_COMMAND="$HOME/.local/bin/hyprland-launch-tui $*"
+# Quote each argument so launch-or-focus can safely re-parse the command string.
+LAUNCH_COMMAND=$(printf '%q ' "$HOME/.local/bin/hyprland-launch-tui" "$@")
 
 exec "$HOME/.local/bin/hyprland-launch-or-focus" "$APP_ID" "$LAUNCH_COMMAND"
