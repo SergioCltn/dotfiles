@@ -16,7 +16,7 @@
   - Change `hyprland-cmd-screenrecord` to the existing `hyprland-screenrecord`, or add a wrapper with the expected name.
 - [x] Fix the shebang in `hyprland/.local/bin/hyprland-launch-tui`.
   - The shebang must be the first line of the file.
-- [ ] Resolve `make test-stow` conflicts for opencode.
+- [x] Resolve `make test-stow` conflicts for opencode.
   - Move/adopt unmanaged files under `~/.config/opencode`, or document a safe migration command.
   - Status: blocked on deciding how to handle existing files outside this repo.
 
@@ -37,11 +37,11 @@
 
 - [x] Stop hard-coding `~/dotfiles`.
   - Derive the repo path from `BASH_SOURCE[0]` in `install.sh`, `install/first-run/all.sh`, and retry paths.
-- [ ] Make repeated installs idempotent.
+- [x] Make repeated installs idempotent.
   - Avoid repeated appends, especially in `install/config/ssh-flakiness.sh`.
-- [ ] Split package lists by role or hardware.
+- [x] Split package lists by role or hardware.
   - Keep base packages separate from hardware-specific packages like Broadcom drivers.
-- [ ] Quote shell variables consistently.
+- [x] Quote shell variables consistently.
   - Focus on paths and command arguments in installer scripts and Hyprland helpers.
 - [x] Avoid `eval` in `hyprland-launch-or-focus`.
   - Use explicit command arguments or arrays instead.
@@ -52,12 +52,12 @@
   - Include `bash -n`, `shellcheck`, `shfmt`, `stylua`, and config validation where practical.
 - [x] Add `shellcheck` to the package list.
   - This allows local validation of shell scripts.
-- [ ] Keep `make test-stow` non-destructive and reliable.
+- [x] Keep `make test-stow` non-destructive and reliable.
   - Ensure it passes on a machine after following documented setup steps.
 
 ## Priority 5: Clean Up Dotfile Hygiene
 
-- [ ] Replace the upstream Kickstart Neovim README.
+- [x] Replace the upstream Kickstart Neovim README.
   - Document this repo's actual Neovim layout, dependencies, and common commands.
 - [x] Decide whether to track `lazy-lock.json`.
   - Track it for reproducibility or remove it from Git if it should be ignored.
