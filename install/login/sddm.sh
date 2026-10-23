@@ -1,5 +1,6 @@
 DOTFILES_PATH="${DOTFILES_PATH:-$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/../.." && pwd)}"
-SDDM_THEME_DIR=/usr/share/sddm/themes/silent
+SDDM_SOURCE_THEME=/usr/share/sddm/themes/silent
+SDDM_THEME_DIR=/usr/share/sddm/themes/silent-minimal
 
 sudo mkdir -p /etc/sddm.conf.d
 
@@ -7,10 +8,18 @@ sudo mkdir -p /etc/sddm.conf.d
 sudo rm -f /etc/sddm.conf.d/autologin.conf
 sudo cp "$DOTFILES_PATH/default/sddm/theme.conf" /etc/sddm.conf.d/theme.conf
 
-# Style the Silent theme to match hyprlock. SDDM reads <ConfigFile>.user on top of the
-# theme config, so these survive theme package updates. The greeter can't read $HOME,
-# so the wallpaper is copied into the theme.
-if [ -d "$SDDM_THEME_DIR" ]; then
+# Build silent-minimal from the Silent theme so package updates don't undo the tweaks.
+# Rerun this script after updating sddm-silent-theme or changing the wallpaper.
+if [ -d "$SDDM_SOURCE_THEME" ]; then
+  sudo rm -rf "$SDDM_THEME_DIR"
+  sudo cp -r "$SDDM_SOURCE_THEME" "$SDDM_THEME_DIR"
+
+  # Empty password placeholder; a space keeps the text padding so only the cursor shows
+  sudo sed -i 's/placeholder: (textConstants \&\& textConstants.password) ? textConstants.password : "Password"/placeholder: " "/' \
+    "$SDDM_THEME_DIR/components/LoginScreen.qml"
+
+  # SDDM reads <ConfigFile>.user on top of the theme config. The greeter can't read
+  # $HOME, so the wallpaper is copied into the theme.
   sudo cp "$DOTFILES_PATH/default/sddm/silent.conf.user" "$SDDM_THEME_DIR/configs/default.conf.user"
   sudo cp "$DOTFILES_PATH/hyprland/.config/hypr/wallpaper.jpg" "$SDDM_THEME_DIR/backgrounds/dotfiles-wallpaper.jpg"
 fi

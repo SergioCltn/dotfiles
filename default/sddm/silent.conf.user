@@ -1,6 +1,6 @@
 ; Overrides for the Silent SDDM theme (configs/default.conf).
-; Installed as /usr/share/sddm/themes/silent/configs/default.conf.user by install/login/sddm.sh.
-; Minimal: blurred wallpaper, small avatar, borderless pill input, Enter to log in.
+; Installed into the silent-minimal theme copy by install/login/sddm.sh.
+; Minimal: blurred wallpaper, only a password field with a cursor; Enter logs in.
 
 [General]
 background-fill-mode = "fill"
