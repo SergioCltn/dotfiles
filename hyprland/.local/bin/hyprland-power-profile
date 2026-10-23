@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+profile=$(powerprofilesctl get 2>/dev/null || true)
+
+case "$profile" in
+    performance) icon="" ;;
+    balanced) icon="" ;;
+    power-saver) icon="" ;;
+    *)
+        printf '%s\n' '{"text":"?","tooltip":"Power profiles daemon no disponible","class":"error"}'
+        exit 0
+        ;;
+esac
+
+printf '{"text":"%s","tooltip":"Perfil: %s\\nClic para seleccionar otro perfil","class":"%s"}\n' \
+    "$icon" "$profile" "$profile"

@@ -9,11 +9,21 @@ if (($# == 0)); then
 fi
 
 WINDOW_PATTERN="$1"
-LAUNCH_COMMAND="${2:-"uwsm-app -- $WINDOW_PATTERN"}"
+shift
+
+if (($# == 0)); then
+  LAUNCH_COMMAND=(uwsm-app -- "$WINDOW_PATTERN")
+elif (($# == 1)); then
+  # TUI launchers pass a complete command string so it can include arguments.
+  LAUNCH_COMMAND=(bash -lc "$1")
+else
+  LAUNCH_COMMAND=("$@")
+fi
+
 WINDOW_ADDRESS=$(hyprctl clients -j | jq -r --arg p "$WINDOW_PATTERN" '.[]|select((.class|test("\\b" + $p + "\\b";"i")) or (.title|test("\\b" + $p + "\\b";"i")))|.address' | head -n1)
 
 if [[ -n $WINDOW_ADDRESS ]]; then
-  hyprctl dispatch focuswindow "address:$WINDOW_ADDRESS"
+  hyprctl dispatch "hl.dsp.focus({window = 'address:$WINDOW_ADDRESS'})"
 else
-  eval exec setsid $LAUNCH_COMMAND
+  exec setsid "${LAUNCH_COMMAND[@]}"
 fi

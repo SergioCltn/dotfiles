@@ -3,7 +3,7 @@
 # Start and stop a screenrecording, which will be saved to ~/Videos by default.
 
 [[ -f ~/.config/user-dirs.dirs ]] && source ~/.config/user-dirs.dirs
-OUTPUT_DIR="$HOME/Pictures"
+OUTPUT_DIR="${XDG_VIDEOS_DIR:-$HOME/Videos}"
 
 if [[ ! -d "$OUTPUT_DIR" ]]; then
   notify-send "Screen recording directory does not exist: $OUTPUT_DIR" -u critical -t 3000

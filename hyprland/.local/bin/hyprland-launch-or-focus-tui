@@ -2,7 +2,12 @@
 
 # Launch or focus on a given TUI identified by the passed in as the command.
 
-APP_ID="org.hyprland.$(basename "$1")"
-LAUNCH_COMMAND="$HOME/.local/bin/hyprland-launch-tui $@"
+if (($# == 0)); then
+    echo "Usage: hyprland-launch-or-focus-tui command [args...]" >&2
+    exit 1
+fi
 
-exec $HOME/.local/bin/hyprland-launch-or-focus "$APP_ID" "$LAUNCH_COMMAND"
+APP_ID="org.hyprland.$(basename "$1")"
+LAUNCH_COMMAND="$HOME/.local/bin/hyprland-launch-tui $*"
+
+exec "$HOME/.local/bin/hyprland-launch-or-focus" "$APP_ID" "$LAUNCH_COMMAND"

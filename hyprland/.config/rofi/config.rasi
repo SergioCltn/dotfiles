@@ -1,0 +1,16 @@
+configuration {
+    modi: "drun";
+    show-icons: true;
+    icon-theme: "breeze-dark";
+    terminal: "ghostty";
+    drun-display-format: "{name}";
+    display-drun: "Aplicaciones";
+    matching: "fuzzy";
+    sorting-method: "fzf";
+    sort: true;
+    disable-history: false;
+    click-to-exit: true;
+    hover-select: false;
+}
+
+@theme "liquid-glass"

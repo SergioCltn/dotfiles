@@ -1,0 +1,107 @@
+/* Tokyo Night liquid glass — intentionally compact like Spotlight. */
+* {
+    background:      #1a1b26f2;
+    surface:         #24283bf2;
+    surface-hover:   #3b4261d9;
+    foreground:      #c0caf5ff;
+    muted:           #787c99ff;
+    accent:          #7aa2f7ff;
+    accent-soft:     #7aa2f738;
+    border-glass:    #c0caf538;
+
+    background-color: transparent;
+    text-color:       @foreground;
+    font:             "Inter 11";
+}
+
+window {
+    width:            520px;
+    location:         center;
+    anchor:           center;
+    background-color: @background;
+    border:           1px;
+    border-color:     @border-glass;
+    border-radius:    18px;
+    padding:          10px;
+}
+
+mainbox {
+    spacing:          8px;
+    background-color: transparent;
+    children:         [ inputbar, listview ];
+}
+
+inputbar {
+    padding:          11px 14px;
+    spacing:          10px;
+    background-color: @surface;
+    border:           1px;
+    border-color:     @border-glass;
+    border-radius:    12px;
+    children:         [ textbox-prompt-colon, entry ];
+}
+
+textbox-prompt-colon {
+    str:              "󰍉";
+    text-color:       @accent;
+    font:             "JetBrainsMono Nerd Font 14";
+    background-color: transparent;
+    expand:           false;
+}
+
+entry {
+    placeholder:      "Buscar aplicaciones…";
+    placeholder-color:@muted;
+    text-color:       @foreground;
+    cursor:           text;
+    expand:           true;
+    horizontal-align: 0.0;
+    vertical-align:   0.5;
+}
+
+listview {
+    lines:            6;
+    columns:          1;
+    fixed-height:     true;
+    scrollbar:        false;
+    spacing:          3px;
+    background-color: transparent;
+}
+
+element {
+    padding:          7px 10px;
+    spacing:          10px;
+    background-color: transparent;
+    border:           1px;
+    border-color:     transparent;
+    border-radius:    10px;
+    cursor:           pointer;
+}
+
+element normal.normal {
+    background-color: transparent;
+    text-color:       @foreground;
+}
+
+element alternate.normal {
+    background-color: transparent;
+    text-color:       @foreground;
+}
+
+element selected.normal {
+    background-color: @accent-soft;
+    border-color:     #7aa2f766;
+    text-color:       #ffffffff;
+}
+
+element-icon {
+    size:             26px;
+    background-color: transparent;
+}
+
+element-text {
+    vertical-align:   0.5;
+    background-color: transparent;
+    text-color:       inherit;
+    highlight:        bold #7aa2f7ff;
+}

@@ -6,7 +6,7 @@
 
 local terminal = "ghostty"
 local fileManager = "uwsm-app -- nautilus --new-window"
-local menu = "uwsm-app -- hyprlauncher"
+local menu = "uwsm-app -- rofi -show drun"
 local browser = "brave --force-device-scale-factor=0.95"
 local binaries = os.getenv("HOME") .. "/.local/bin"
 local mainMod = "SUPER"
@@ -18,6 +18,10 @@ local mainMod = "SUPER"
 hl.monitor({ output = "DP-1", mode = "preferred", position = "0x0", scale = "1" })
 hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x1080", scale = "1" })
 
+for workspace = 1, 5 do
+    hl.workspace_rule({ workspace = tostring(workspace), persistent = true })
+end
+
 -------------------
 -- Autostart
 -------------------
@@ -27,6 +31,7 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm-app -- mako")
     hl.exec_cmd("uwsm-app -- waybar")
     hl.exec_cmd("uwsm-app -- hyprpaper")
+    hl.exec_cmd("systemctl --user start hyprpolkitagent.service")
 end)
 
 hl.exec_cmd('gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"')
@@ -76,9 +81,9 @@ hl.config({
 
         blur = {
             enabled = true,
-            size = 3,
-            passes = 1,
-            vibrancy = 0.1696,
+            size = 6,
+            passes = 2,
+            vibrancy = 0.2,
         },
     },
 
@@ -111,6 +116,15 @@ hl.config({
             natural_scroll = true,
         },
     },
+})
+
+-- Blur the desktop behind Waybar; its translucent CSS provides the glass tint.
+hl.layer_rule({
+    name = "waybar-liquid-glass",
+    match = { namespace = "^waybar$" },
+    blur = true,
+    blur_popups = true,
+    ignore_alpha = 0.12,
 })
 
 hl.curve("easeOutQuint", { type = "bezier", points = { { 0.23, 1 }, { 0.32, 1 } } })
@@ -163,7 +177,7 @@ bind(mainMod .. " + P", hl.dsp.window.pseudo(), "Toggle pseudo-tile")
 bind(mainMod .. " + S", hl.dsp.layout("togglesplit"), "Toggle split")
 
 -- Session
-bind(mainMod .. " + equal", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch exit"), "Exit Hyprland")
+bind(mainMod .. " + equal", hl.dsp.exec_cmd("uwsm stop"), "Exit Hyprland")
 
 -- Focus (vim keys)
 bind(mainMod .. " + H", hl.dsp.focus({ direction = "left" }), "Focus left")
@@ -223,8 +237,8 @@ bind("ALT + mouse:273", hl.dsp.window.resize(), "Resize window with mouse", { mo
 -- Media keys
 bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), "Volume up", { locked = true, repeating = true })
 bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), "Volume down", { locked = true, repeating = true })
-bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), "Toggle audio mute", { locked = true, repeating = true })
-bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), "Toggle microphone mute", { locked = true, repeating = true })
+bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"), "Toggle audio mute", { locked = true })
+bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"), "Toggle microphone mute", { locked = true })
 bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"), "Brightness up", { locked = true, repeating = true })
 bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%-"), "Brightness down", { locked = true, repeating = true })
 

@@ -8,7 +8,7 @@ fontconfig
 discord
 pacman-contrib
 starship
-hyprlauncher
+rofi
 hyprpaper
 lsof
 neovim
@@ -44,6 +44,7 @@ hypridle
 hyprland
 hyprland-guiutils
 hyprlock
+hyprpolkitagent
 hyprpicker
 hyprsunset
 imagemagick

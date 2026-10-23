@@ -2,12 +2,42 @@
 
 clear
 
+updates_file=$(mktemp)
+status_file="${XDG_RUNTIME_DIR:-/tmp}/hyprland-pacman-update.status"
+cache_file="${XDG_RUNTIME_DIR:-/tmp}/hyprland-pending-updates.list"
+lock_file="${XDG_RUNTIME_DIR:-/tmp}/hyprland-pacman-update.lock"
+update_completed=0
+
+cleanup() {
+  rm -f "$updates_file" "$status_file"
+  if (( update_completed == 1 )); then
+    rm -f "$cache_file"
+  fi
+  pkill -RTMIN+9 -x waybar 2>/dev/null || true
+}
+trap cleanup EXIT
+
+wait_for_key() {
+  read -n 1 -s -r -p "Press any key to close..."
+  echo
+}
+
+exec 9>"$lock_file"
+if ! flock -n 9; then
+  gum style --foreground 226 --bold "An update is already running"
+  wait_for_key
+  exit 1
+fi
+
+printf '%s\n' "checking" > "$status_file"
+pkill -RTMIN+9 -x waybar 2>/dev/null || true
+
 # Check if gum and checkupdates are available
 if ! command -v gum &>/dev/null; then
   echo "Error: gum not found"
   echo "Install with: sudo pacman -S gum"
   echo
-  read -p "Press enter to close..."
+  wait_for_key
   exit 1
 fi
 
@@ -15,37 +45,41 @@ if ! command -v checkupdates &>/dev/null; then
   gum style --foreground 196 --bold "Error: checkupdates not found"
   echo "Install with: sudo pacman -S pacman-contrib"
   echo
-  read -p "Press enter to close..."
+  wait_for_key
   exit 1
 fi
 
 gum style --border double --border-foreground 39 --padding "1 2" --margin "1 0" --bold "System Update Check"
 
-gum spin --spinner dot --title "Checking for updates..." -- sh -c 'checkupdates 2>/dev/null > /tmp/updates.tmp'
+# checkupdates returns 2 when updates are available, so do not treat that as
+# an execution failure. Keeping the output in this process avoids gum
+# swallowing the temporary file argument.
+if [[ -s "$cache_file" ]]; then
+  cp "$cache_file" "$updates_file"
+else
+  checkupdates 2>/dev/null > "$updates_file" || true
+fi
 
-updates=$(cat /tmp/updates.tmp 2>/dev/null)
+updates=$(cat "$updates_file")
 count=$(echo "$updates" | grep -c '[^[:space:]]' 2>/dev/null || echo "0")
 
 if [ -z "$updates" ] || [ "$count" -eq 0 ]; then
   gum style --foreground 46 --bold "✓ System is up to date!"
+  notify-send "System updates" "System is up to date" 2>/dev/null || true
   echo
-  read -p "Press enter to close..."
-  rm -f /tmp/updates.tmp
+  wait_for_key
   exit 0
 fi
 
 gum style --foreground 226 --bold "$count package(s) available for update:"
 echo
-echo "$updates" | while read -r line; do
-  [ -z "$line" ] && continue
-  pkg=$(echo "$line" | awk '{print $1}')
-  old_ver=$(echo "$line" | awk '{print $2}')
-  new_ver=$(echo "$line" | awk '{print $4}')
-  echo "  $(gum style --foreground 51 "$pkg") $(gum style --foreground 245 "$old_ver → $new_ver")"
-done
+package_list=$(awk 'NF { printf "  %s %s → %s\n", $1, $2, $4 }' <<< "$updates")
+gum style --foreground 51 "$package_list"
 
 echo
 if gum confirm "Proceed with update?"; then
+  printf '%s\n' "updating" > "$status_file"
+  pkill -RTMIN+9 -x waybar 2>/dev/null || true
   echo
   gum style --foreground 39 --bold "Updating packages..."
   echo
@@ -56,29 +90,34 @@ if gum confirm "Proceed with update?"; then
   done
   echo
   
-  sudo pacman -Syu
+  if ! sudo pacman -Syu; then
+    notify-send -u critical "System update failed" "pacman could not complete the update" 2>/dev/null || true
+    echo
+    gum style --foreground 196 --bold "✗ Update failed"
+    echo
+    wait_for_key
+    exit 1
+  fi
   
   echo
   gum style --foreground 46 --bold "✓ Update complete!"
+  update_completed=1
+  notify-send "System update complete" "Packages were updated successfully" 2>/dev/null || true
   echo
   
   # Show what was updated
   gum style --foreground 39 --bold "Updated packages:"
   echo
-  echo "$updates" | while read -r line; do
-    [ -z "$line" ] && continue
-    pkg=$(echo "$line" | awk '{print $1}')
-    new_ver=$(echo "$line" | awk '{print $4}')
-    echo "  $(gum style --foreground 46 "✓") $(gum style --foreground 51 "$pkg") $(gum style --foreground 245 "$new_ver")"
-  done
+  updated_list=$(awk 'NF { printf "  ✓ %s %s\n", $1, $4 }' <<< "$updates")
+  gum style --foreground 46 "$updated_list"
   
   # Refresh waybar pacman module
-  pkill -RTMIN+9 waybar
+  pkill -RTMIN+9 -x waybar 2>/dev/null || true
 else
+  notify-send "System update cancelled" "No packages were changed" 2>/dev/null || true
   echo
   gum style --foreground 226 --bold "⊘ Update cancelled"
 fi
 
-rm -f /tmp/updates.tmp
 echo
-read -p "Press enter to close..."
+wait_for_key

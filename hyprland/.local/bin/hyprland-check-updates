@@ -1,0 +1,32 @@
+#!/usr/bin/env bash
+
+set -u
+
+status_file="${XDG_RUNTIME_DIR:-/tmp}/hyprland-pacman-update.status"
+cache_file="${XDG_RUNTIME_DIR:-/tmp}/hyprland-pending-updates.list"
+
+if [[ -r "$status_file" ]]; then
+    status=$(<"$status_file")
+    if [[ "$status" == "checking" || "$status" == "updating" ]]; then
+        printf '%s\n' '{"text":"↻","tooltip":"Actualizando paquetes...","class":"updating"}'
+        exit 0
+    fi
+fi
+
+if ! command -v checkupdates >/dev/null 2>&1; then
+    printf '%s\n' '{"text":"","tooltip":"checkupdates no está instalado","class":"error"}'
+    exit 0
+fi
+
+updates=$(checkupdates 2>/dev/null || true)
+cache_tmp=$(mktemp "${cache_file}.XXXXXX")
+printf '%s\n' "$updates" > "$cache_tmp"
+mv -f "$cache_tmp" "$cache_file"
+count=$(awk 'NF { count++ } END { print count + 0 }' <<< "$updates")
+
+if (( count > 0 )); then
+    printf '{"text":"󰏔 %d","tooltip":"%d actualizaciones disponibles","class":"pending"}\n' "$count" "$count"
+    exit 0
+fi
+
+printf '%s\n' '{"text":"","tooltip":"El sistema está actualizado","class":"up-to-date"}'

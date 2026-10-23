@@ -2,23 +2,33 @@
   "reload_style_on_change": true,
   "layer": "top",
   "position": "top",
-  "spacing": 0,
-  "height": 26,
+  "spacing": 6,
+  "height": 32,
   "modules-left": ["custom/appmenu", "hyprland/workspaces"],
   "modules-center": ["clock", "custom/screenrecording-indicator"],
   "modules-right": [
     "custom/pacman",
-    "bluetooth",
-    "network",
-    "pulseaudio",
-    "backlight",
-    "battery",
-    "power-profiles-daemon",
+    "tray",
+    "group/connectivity",
+    "group/controls",
+    "group/power-status",
     "cpu",
     "custom/power"
   ],
+  "group/connectivity": {
+    "orientation": "horizontal",
+    "modules": ["bluetooth", "network"]
+  },
+  "group/controls": {
+    "orientation": "horizontal",
+    "modules": ["pulseaudio", "backlight"]
+  },
+  "group/power-status": {
+    "orientation": "horizontal",
+    "modules": ["battery", "custom/power-profile"]
+  },
   "custom/power": {
-    "format": "⏻ ",
+    "format": "󰐥",
     "tooltip": false,
     "menu": "on-click",
     "menu-file": "~/.config/waybar/power_menu.xml",
@@ -30,7 +40,7 @@
     }
   },
   "backlight": {
-    "format": "{icon}",
+    "format": "{icon} {percent}%",
     "format-icons": [
       "",
       "",
@@ -52,22 +62,10 @@
     "scroll-step": 5
   },
   "hyprland/workspaces": {
+    "format": "{name}",
     "on-click": "activate",
-    "format": "{icon}",
-    "format-icons": {
-      "default": "",
-      "1": "1",
-      "2": "2",
-      "3": "3",
-      "4": "4",
-      "5": "5",
-      "6": "6",
-      "7": "7",
-      "8": "8",
-      "9": "9",
-      "10": "0",
-      "active": "󱓻"
-    },
+    "sort-by-number": true,
+    "all-outputs": true,
     "persistent-workspaces": {
       "1": [],
       "2": [],
@@ -77,14 +75,14 @@
     }
   },
   "cpu": {
-    "interval": 5,
+    "interval": 10,
     "format": "󰍛",
     "on-click": "$HOME/.local/bin/hyprland-launch-or-focus-tui btop",
     "on-click-right": "ghostty"
   },
   "clock": {
-    "format": "{:L%A %H:%M}",
-    "format-alt": "{:L%d %B W%V %Y}",
+    "format": "󰥔  {:L%A  %H:%M}",
+    "format-alt": "󰃭  {:L%d %B · W%V · %Y}",
     "tooltip": false,
     "on-click-right": ""
   },
@@ -94,40 +92,45 @@
     "format-wifi": "{icon}",
     "format-ethernet": "󰀂",
     "format-disconnected": "󰤮",
-    "tooltip-format-wifi": "{essid} ({frequency} GHz)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
+    "tooltip-format-wifi": "Wi-Fi: {essid} ({signalStrength}%)\n⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-ethernet": "⇣{bandwidthDownBytes}  ⇡{bandwidthUpBytes}",
     "tooltip-format-disconnected": "Disconnected",
-    "interval": 3,
+    "align": 0.5,
+    "justify": "center",
+    "interval": 5,
     "spacing": 1,
     "on-click": "$HOME/.local/bin/hyprland-launch-wifi"
   },
   "battery": {
-    "format": "{capacity}% {icon}",
-    "format-discharging": "{icon}",
-    "format-charging": "{icon}",
-    "format-plugged": "",
+    "format": "{icon} {capacity}%",
+    "format-discharging": "{icon} {capacity}%",
+    "format-charging": "{icon} {capacity}%",
+    "format-plugged": " {capacity}%",
     "format-icons": {
       "charging": ["󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
       "default": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"]
     },
-    "format-full": "󰂅",
+    "format-full": "󰂅 {capacity}%",
     "tooltip-format-discharging": "{power:>1.0f}W↓ {capacity}%",
     "tooltip-format-charging": "{power:>1.0f}W↑ {capacity}%",
-    "interval": 5,
-    "on-click": "omarchy-menu power",
+    "interval": 30,
     "states": {
       "warning": 20,
       "critical": 10
     }
   },
-  "power-profiles-daemon": {
-    "format": "{icon}",
-    "format-icons": {
-      "performance": "",
-      "balanced": " ",
-      "power-saver": " "
+  "custom/power-profile": {
+    "exec": "$HOME/.local/bin/hyprland-power-profile",
+    "return-type": "json",
+    "interval": 10,
+    "signal": 10,
+    "menu": "on-click",
+    "menu-file": "~/.config/waybar/power_profile_menu.xml",
+    "menu-actions": {
+      "performance": "powerprofilesctl set performance && pkill -RTMIN+10 -x waybar",
+      "balanced": "powerprofilesctl set balanced && pkill -RTMIN+10 -x waybar",
+      "power-saver": "powerprofilesctl set power-saver && pkill -RTMIN+10 -x waybar"
     },
-    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
     "tooltip": true
   },
   "bluetooth": {
@@ -139,7 +142,7 @@
     "on-click": "$HOME/.local/bin/hyprland-launch-bluetooth"
   },
   "pulseaudio": {
-    "format": "{icon}",
+    "format": "{icon} {volume}%",
     "on-click": "$HOME/.local/bin/hyprland-launch-or-focus-tui wiremix",
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
@@ -161,20 +164,22 @@
   },
   "custom/appmenu": {
     "on-click-right": "~/.local/bin/hyprland-launch-keybinds",
-    "tooltip-format": "Left: Open the application launcher\nRight: Show all keybindings",
-    "on-click": "hyprlauncher",
-    "format": "Apps"
+    "tooltip-format": "Clic: abrir aplicaciones\nClic derecho: ver atajos",
+    "on-click": "rofi -show drun",
+    "format": "󰣇"
   },
   "custom/pacman": {
-    "format": "󰏔 {}",
+    "format": "{text}",
     "return-type": "json",
-    "exec": "count=$(checkupdates 2>/dev/null | wc -l); if [ \"$count\" -gt 0 ]; then echo '{\"text\":\"'$count'\",\"tooltip\":\"'$count' updates available\"}'; else echo '{\"text\":\"\"}'; fi",
+    "align": 0.5,
+    "justify": "center",
+    "exec": "$HOME/.local/bin/hyprland-check-updates",
     "interval": 1800,
     "signal": 9,
     "on-click": "$HOME/.local/bin/hyprland-launch-updates"
   },
   "tray": {
-    "icon-size": 12,
-    "spacing": 17
+    "icon-size": 14,
+    "spacing": 8
   }
 }
