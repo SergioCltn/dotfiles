@@ -48,7 +48,7 @@
 
 ## Priority 4: Add Checks And Tooling
 
-- [ ] Add a `make check` target.
+- [x] Add a `make check` target.
   - Include `bash -n`, `shellcheck`, `shfmt`, `stylua`, and config validation where practical.
 - [x] Add `shellcheck` to the package list.
   - This allows local validation of shell scripts.
@@ -59,7 +59,7 @@
 
 - [ ] Replace the upstream Kickstart Neovim README.
   - Document this repo's actual Neovim layout, dependencies, and common commands.
-- [ ] Decide whether to track `lazy-lock.json`.
+- [x] Decide whether to track `lazy-lock.json`.
   - Track it for reproducibility or remove it from Git if it should be ignored.
 - [x] Guard optional Zsh integrations.
   - Check for oh-my-zsh and `fzf` before sourcing/evaluating them.
@@ -70,8 +70,8 @@
 
 ## Priority 6: Small Neovim Fixes
 
-- [ ] Fix duplicate DAP `<F2>` mapping in `debug.lua`.
+- [x] Fix duplicate DAP `<F2>` mapping in `debug.lua`.
   - Assign separate keys for step-into and step-over.
-- [ ] Remove duplicate `bash` from Treesitter parser list.
-- [ ] Fix the tab-width comment in `options.lua`.
+- [x] Remove duplicate `bash` from Treesitter parser list.
+- [x] Fix the tab-width comment in `options.lua`.
   - The comment says 4, but the config sets 2.
