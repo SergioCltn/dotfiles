@@ -56,7 +56,8 @@ start_install_log() {
   touch "$DOTFILES_INSTALL_LOG_FILE"
   chmod 600 "$DOTFILES_INSTALL_LOG_FILE"
 
-  export DOTFILES_START_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+  DOTFILES_START_TIME=$(date '+%Y-%m-%d %H:%M:%S')
+  export DOTFILES_START_TIME
 
   echo "=== Installation Started: $DOTFILES_START_TIME ===" >>"$DOTFILES_INSTALL_LOG_FILE"
   start_log_output

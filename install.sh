@@ -2,7 +2,8 @@
 
 set -eEo pipefail
 
-export DOTFILES_PATH="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_PATH="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
+export DOTFILES_PATH
 export DOTFILES_INSTALL="$DOTFILES_PATH/install"
 export DOTFILES_INSTALL_LOG_FILE="$DOTFILES_PATH/install.log"
 
