@@ -8,6 +8,7 @@ return {
       'javascript',
       'typescript',
       'tsx',
+      'dart',
       'yaml',
       'html',
       'css',

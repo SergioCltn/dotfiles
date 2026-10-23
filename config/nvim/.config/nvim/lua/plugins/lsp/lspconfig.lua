@@ -111,7 +111,9 @@ return {
 
       local servers = {
         clangd = {},
+        dartls = {},
         gopls = {},
+        jdtls = {},
         eslint = {},
         yamlls = {},
         eslint_d = {},
@@ -147,7 +149,9 @@ return {
 
       require('mason').setup()
 
-      local ensure_installed = vim.tbl_keys(servers or {})
+      local ensure_installed = vim.tbl_filter(function(server_name)
+        return server_name ~= 'dartls'
+      end, vim.tbl_keys(servers or {}))
       vim.list_extend(ensure_installed, {
         'eslint_d',
         'stylua',
@@ -166,6 +170,9 @@ return {
         config.capabilities = vim.tbl_deep_extend('force', {}, capabilities, config.capabilities or {})
         vim.lsp.config(server_name, config)
       end
+
+      -- Dart ships its own LSP in the SDK, so enable it directly instead of via Mason.
+      vim.lsp.enable 'dartls'
 
       require('mason-lspconfig').setup {
         ensure_installed = {},

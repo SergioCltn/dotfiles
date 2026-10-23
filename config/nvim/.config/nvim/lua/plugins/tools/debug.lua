@@ -23,6 +23,7 @@ return {
 
     -- Add your own debuggers here
     'leoluz/nvim-dap-go',
+    'mfussenegger/nvim-dap-python',
   },
   keys = {
     -- Basic debugging keymaps, feel free to change to your liking!
@@ -96,6 +97,7 @@ return {
         -- Update this to ensure that you have the debuggers for the langs you want
         'codelldb',
         'delve',
+        'debugpy',
         'js-debug-adapter',
       },
     }
@@ -129,6 +131,15 @@ return {
       path = path or ''
       local ret = root .. '/packages/' .. pkg .. '/' .. path
       return ret
+    end
+
+    local function get_python_path()
+      local venv_python = vim.fn.getcwd() .. '/.venv/bin/python'
+      if vim.fn.executable(venv_python) == 1 then
+        return venv_python
+      end
+
+      return get_pkg_path('debugpy', 'venv/bin/python')
     end
 
     for _, adapter in pairs { 'pwa-node', 'pwa-chrome' } do
@@ -201,6 +212,31 @@ return {
       }
     end
 
+    dap.configurations.python = {
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Launch file',
+        program = '${file}',
+        pythonPath = get_python_path,
+        console = 'integratedTerminal',
+      },
+      {
+        type = 'python',
+        request = 'launch',
+        name = 'Launch module',
+        module = function()
+          return vim.fn.input('Module path: ', 'trading_bot.main')
+        end,
+        args = function()
+          local input = vim.fn.input('Arguments: ', '')
+          return vim.split(input, '%s+', { trimempty = true })
+        end,
+        pythonPath = get_python_path,
+        console = 'integratedTerminal',
+      },
+    }
+
     -- Install golang specific config
     require('dap-go').setup {
       delve = {
@@ -209,5 +245,7 @@ return {
         detached = vim.fn.has 'win32' == 0,
       },
     }
+
+    require('dap-python').setup(get_pkg_path('debugpy', 'venv/bin/python'))
   end,
 }
