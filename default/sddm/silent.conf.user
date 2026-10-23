@@ -23,11 +23,10 @@ inactive-size = 1
 active-border-size = 0
 inactive-border-size = 0
 
+; Same for the username: transparent and 1px so it takes no space.
 [LoginScreen.LoginArea.Username]
-font-family = "Inter"
-font-size = 14
-font-weight = 500
-color = "#E6E6E6"
+font-size = 1
+color = "#00000000"
 margin = 0
 
 [LoginScreen.LoginArea.PasswordInput]
