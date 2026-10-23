@@ -1,0 +1,89 @@
+; Overrides for the Silent SDDM theme (configs/default.conf).
+; Installed as /usr/share/sddm/themes/silent/configs/default.conf.user by install/login/sddm.sh.
+; Matches hyprlock: blurred wallpaper, Inter, cyan/green accents.
+
+[General]
+background-fill-mode = "fill"
+
+[LockScreen]
+background = "dotfiles-wallpaper.jpg"
+blur = 32
+brightness = -0.25
+
+[LockScreen.Clock]
+format = "HH:mm"
+font-family = "Inter"
+font-size = 96
+font-weight = 700
+color = "#F2F2F2"
+
+[LockScreen.Date]
+format = "dddd, dd MMMM"
+font-family = "Inter"
+font-size = 20
+font-weight = 400
+color = "#F2F2F2"
+
+[LockScreen.Message]
+text = "Press any key"
+font-family = "Inter"
+color = "#F2F2F2"
+
+[LoginScreen]
+background = "dotfiles-wallpaper.jpg"
+blur = 32
+brightness = -0.35
+
+[LoginScreen.LoginArea.Avatar]
+active-border-size = 2
+active-border-color = "#33CCFF"
+
+[LoginScreen.LoginArea.Username]
+font-family = "Inter"
+color = "#F2F2F2"
+
+[LoginScreen.LoginArea.PasswordInput]
+width = 280
+height = 44
+font-family = "Inter"
+content-color = "#F2F2F2"
+background-color = "#1A1A1A"
+background-opacity = 0.6
+border-size = 2
+border-color = "#33CCFF"
+border-radius-left = 14
+border-radius-right = 14
+
+[LoginScreen.LoginArea.LoginButton]
+background-color = "#1A1A1A"
+background-opacity = 0.6
+active-background-color = "#00FF99"
+active-background-opacity = 0.35
+border-size = 2
+border-color = "#00FF99"
+border-radius-left = 14
+border-radius-right = 14
+font-family = "Inter"
+
+[LoginScreen.LoginArea.Spinner]
+font-family = "Inter"
+color = "#33CCFF"
+
+[LoginScreen.LoginArea.WarningMessage]
+font-family = "Inter"
+error-color = "#F38BA8"
+
+[LoginScreen.MenuArea.Buttons]
+font-family = "Inter"
+
+[LoginScreen.MenuArea.Popups]
+background-color = "#1A1A1A"
+background-opacity = 0.75
+active-option-background-color = "#33CCFF"
+active-option-background-opacity = 0.3
+font-family = "Inter"
+
+[Tooltips]
+font-family = "Inter"
+background-color = "#1A1A1A"
+background-opacity = 0.75
