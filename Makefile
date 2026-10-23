@@ -1,4 +1,4 @@
-.PHONY: install uninstall stow-config unstow-config stow-hyprland unstow-hyprland shell-setup help test-stow
+.PHONY: install uninstall stow-config unstow-config stow-hyprland unstow-hyprland shell-setup help test-stow check
 
 help:
 	@echo "Dotfiles Management"
@@ -11,6 +11,7 @@ help:
 	@echo "  make stow-hyprland  - Stow Hyprland configuration only"
 	@echo "  make shell-setup    - Install TPM, oh-my-zsh, plugins, set zsh as default"
 	@echo "  make test-stow      - Test stow configurations for conflicts (dry-run)"
+	@echo "  make check          - Lint shell scripts, Lua and JSON configs"
 
 install:
 	chmod +x install.sh
@@ -63,3 +64,6 @@ test-stow:
 	@{ stow -n hyprland 2>&1 | grep -v "in simulation mode" | grep -E "(CONFLICT|ERROR|cannot)" && { echo "✗ Stow conflicts detected!"; exit 1; } || echo "✓ No stow conflicts in hyprland"; }
 	@echo ""
 	@echo "All stow tests passed!"
+
+check:
+	@./install/check.sh
