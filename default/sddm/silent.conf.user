@@ -1,89 +1,97 @@
 ; Overrides for the Silent SDDM theme (configs/default.conf).
 ; Installed as /usr/share/sddm/themes/silent/configs/default.conf.user by install/login/sddm.sh.
-; Matches hyprlock: blurred wallpaper, Inter, cyan/green accents.
+; Minimal: blurred wallpaper, small avatar, borderless pill input, Enter to log in.
 
 [General]
 background-fill-mode = "fill"
 
 [LockScreen]
+display = false
 background = "dotfiles-wallpaper.jpg"
-blur = 32
-brightness = -0.25
-
-[LockScreen.Clock]
-format = "HH:mm"
-font-family = "Inter"
-font-size = 96
-font-weight = 700
-color = "#F2F2F2"
-
-[LockScreen.Date]
-format = "dddd, dd MMMM"
-font-family = "Inter"
-font-size = 20
-font-weight = 400
-color = "#F2F2F2"
-
-[LockScreen.Message]
-text = "Press any key"
-font-family = "Inter"
-color = "#F2F2F2"
+blur = 64
+brightness = -0.5
 
 [LoginScreen]
 background = "dotfiles-wallpaper.jpg"
-blur = 32
-brightness = -0.35
+blur = 64
+brightness = -0.5
 
+; The theme always draws an avatar; shrink it to 1px to hide it.
 [LoginScreen.LoginArea.Avatar]
-active-border-size = 2
-active-border-color = "#33CCFF"
+active-size = 1
+inactive-size = 1
+active-border-size = 0
+inactive-border-size = 0
 
 [LoginScreen.LoginArea.Username]
 font-family = "Inter"
-color = "#F2F2F2"
+font-size = 14
+font-weight = 500
+color = "#E6E6E6"
+margin = 0
 
 [LoginScreen.LoginArea.PasswordInput]
-width = 280
-height = 44
+width = 240
+height = 40
+display-icon = false
 font-family = "Inter"
+font-size = 12
 content-color = "#F2F2F2"
-background-color = "#1A1A1A"
-background-opacity = 0.6
-border-size = 2
-border-color = "#33CCFF"
-border-radius-left = 14
-border-radius-right = 14
+background-color = "#FFFFFF"
+background-opacity = 0.08
+border-size = 0
+border-radius-left = 20
+border-radius-right = 20
+margin-top = 16
 
 [LoginScreen.LoginArea.LoginButton]
-background-color = "#1A1A1A"
-background-opacity = 0.6
-active-background-color = "#00FF99"
-active-background-opacity = 0.35
-border-size = 2
-border-color = "#00FF99"
-border-radius-left = 14
-border-radius-right = 14
+hide-if-not-needed = true
+background-color = "#FFFFFF"
+background-opacity = 0.08
+active-background-color = "#FFFFFF"
+active-background-opacity = 0.16
+border-size = 0
+border-radius-left = 20
+border-radius-right = 20
 font-family = "Inter"
 
 [LoginScreen.LoginArea.Spinner]
-font-family = "Inter"
+display-text = false
 color = "#33CCFF"
 
 [LoginScreen.LoginArea.WarningMessage]
 font-family = "Inter"
+normal-color = "#B3B3B3"
+warning-color = "#B3B3B3"
 error-color = "#F38BA8"
 
 [LoginScreen.MenuArea.Buttons]
+margin-right = 32
+margin-bottom = 32
 font-family = "Inter"
 
 [LoginScreen.MenuArea.Popups]
 background-color = "#1A1A1A"
 background-opacity = 0.75
-active-option-background-color = "#33CCFF"
-active-option-background-opacity = 0.3
+active-option-background-color = "#FFFFFF"
+active-option-background-opacity = 0.12
 font-family = "Inter"
 
+[LoginScreen.MenuArea.Session]
+display = false
+
+[LoginScreen.MenuArea.Layout]
+display = false
+
+[LoginScreen.MenuArea.Keyboard]
+display = false
+
+[LoginScreen.MenuArea.Power]
+popup-direction = "up"
+popup-align = "end"
+content-color = "#808080"
+active-content-color = "#F2F2F2"
+active-background-opacity = 0.0
+
 [Tooltips]
-font-family = "Inter"
-background-color = "#1A1A1A"
-background-opacity = 0.75
+enable = false
