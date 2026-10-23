@@ -33,10 +33,12 @@
     "menu": "on-click",
     "menu-file": "~/.config/waybar/power_menu.xml",
     "menu-actions": {
+      "lock": "loginctl lock-session",
+      "logout": "uwsm stop",
       "suspend": "systemctl suspend",
       "hibernate": "systemctl hibernate",
-      "reboot": "reboot",
-      "shutdown": "shutdown -h now"
+      "reboot": "systemctl reboot",
+      "shutdown": "systemctl poweroff"
     }
   },
   "backlight": {
@@ -78,13 +80,12 @@
     "interval": 10,
     "format": "󰍛",
     "on-click": "$HOME/.local/bin/hyprland-launch-or-focus-tui btop",
-    "on-click-right": "ghostty"
+    "on-click-right": "uwsm-app -- ghostty"
   },
   "clock": {
     "format": "󰥔  {:L%A  %H:%M}",
     "format-alt": "󰃭  {:L%d %B · W%V · %Y}",
-    "tooltip": false,
-    "on-click-right": ""
+    "tooltip": false
   },
   "network": {
     "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
@@ -144,17 +145,13 @@
   "pulseaudio": {
     "format": "{icon} {volume}%",
     "on-click": "$HOME/.local/bin/hyprland-launch-or-focus-tui wiremix",
-    "on-click-right": "pamixer -t",
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,
     "format-muted": "",
     "format-icons": {
       "default": ["", "", ""]
     }
-  },
-  "custom/expand-icon": {
-    "format": "",
-    "tooltip": false
   },
   "custom/screenrecording-indicator": {
     "on-click": "$HOME/.local/bin/hyprland-screenrecord",
@@ -165,7 +162,7 @@
   "custom/appmenu": {
     "on-click-right": "~/.local/bin/hyprland-launch-keybinds",
     "tooltip-format": "Clic: abrir aplicaciones\nClic derecho: ver atajos",
-    "on-click": "rofi -show drun",
+    "on-click": "uwsm-app -- rofi -show drun",
     "format": "󰣇"
   },
   "custom/pacman": {

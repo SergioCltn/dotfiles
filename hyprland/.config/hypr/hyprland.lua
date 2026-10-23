@@ -17,6 +17,7 @@ local mainMod = "SUPER"
 
 hl.monitor({ output = "DP-1", mode = "preferred", position = "0x0", scale = "1" })
 hl.monitor({ output = "eDP-1", mode = "preferred", position = "0x1080", scale = "1" })
+hl.monitor({ output = "", mode = "preferred", position = "auto", scale = "1" })
 
 for workspace = 1, 5 do
     hl.workspace_rule({ workspace = tostring(workspace), persistent = true })
@@ -32,13 +33,13 @@ hl.on("hyprland.start", function()
     hl.exec_cmd("uwsm-app -- waybar")
     hl.exec_cmd("uwsm-app -- hyprpaper")
     hl.exec_cmd("systemctl --user start hyprpolkitagent.service")
-end)
 
-hl.exec_cmd('gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"')
-hl.exec_cmd("gsettings set org.gnome.desktop.interface font-name 'Inter 11'")
-hl.exec_cmd("gsettings set org.gnome.desktop.interface document-font-name 'Inter 11'")
-hl.exec_cmd("gsettings set org.gnome.desktop.interface monospace-font-name 'Inter 10'")
-hl.exec_cmd("gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 11'")
+    hl.exec_cmd('gsettings set org.gnome.desktop.interface color-scheme "prefer-dark"')
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface font-name 'Inter 11'")
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface document-font-name 'Inter 11'")
+    hl.exec_cmd("gsettings set org.gnome.desktop.interface monospace-font-name 'JetBrainsMono Nerd Font Mono 10'")
+    hl.exec_cmd("gsettings set org.gnome.desktop.wm.preferences titlebar-font 'Inter Bold 11'")
+end)
 
 -------------------
 -- Environment
@@ -177,6 +178,7 @@ bind(mainMod .. " + P", hl.dsp.window.pseudo(), "Toggle pseudo-tile")
 bind(mainMod .. " + S", hl.dsp.layout("togglesplit"), "Toggle split")
 
 -- Session
+bind(mainMod .. " + Escape", hl.dsp.exec_cmd("loginctl lock-session"), "Lock screen")
 bind(mainMod .. " + equal", hl.dsp.exec_cmd("uwsm stop"), "Exit Hyprland")
 
 -- Focus (vim keys)
@@ -286,11 +288,4 @@ hl.window_rule({
         pin = false,
     },
     no_focus = true,
-})
-
-hl.window_rule({
-    name = "move-hyprland-run",
-    match = { class = "hyprland-run" },
-    move = "20 monitor_h-120",
-    float = true,
 })
