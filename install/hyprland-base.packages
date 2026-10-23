@@ -99,10 +99,8 @@ wget
 base
 base-devel
 autoconf-archive
-broadcom-wl
 btrfs-progs
 dkms
-egl-wayland
 gst-plugin-pipewire
 gtk4-layer-shell
 htop

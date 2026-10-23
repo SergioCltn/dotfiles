@@ -105,10 +105,10 @@
 - **base**: Minimal package set to define a basic Arch Linux installation.
 - **base-devel**: Basic tools to build Arch Linux packages.
 - **autoconf-archive**: A collection of freely re-usable Autoconf macros.
-- **broadcom-wl**: Broadcom 802.11 Linux STA wireless driver.
+- **broadcom-wl**: Broadcom 802.11 Linux STA wireless driver. Installed by `config/hardware/broadcom.sh` only when a Broadcom card is detected.
 - **btrfs-progs**: Btrfs filesystem utilities.
 - **dkms**: Dynamic Kernel Module Support.
-- **egl-wayland**: EGLStream-based Wayland external platform.
+- **egl-wayland**: EGLStream-based Wayland external platform. Installed by `config/hardware/nvidia.sh` only when an NVIDIA GPU is detected.
 - **gst-plugin-pipewire**: Multimedia graph framework - pipewire plugin.
 - **gtk4-layer-shell**: Library to create Wayland desktop components using the Layer Shell protocol.
 - **htop**: Interactive process viewer.

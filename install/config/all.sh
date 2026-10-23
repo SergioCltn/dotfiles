@@ -12,6 +12,9 @@ run_logged "$DOTFILES_INSTALL/config/fast-shutdown.sh"
 
 run_logged "$DOTFILES_INSTALL/config/hardware/network.sh"
 run_logged "$DOTFILES_INSTALL/config/hardware/bluetooth.sh"
+run_logged "$DOTFILES_INSTALL/config/hardware/intel.sh"
+run_logged "$DOTFILES_INSTALL/config/hardware/broadcom.sh"
+run_logged "$DOTFILES_INSTALL/config/hardware/nvidia.sh"
 # run_logged $DOTFILES_INSTALL/config/hardware/printer.sh
 run_logged "$DOTFILES_INSTALL/config/hardware/usb-autosuspend.sh"
 run_logged "$DOTFILES_INSTALL/config/hardware/ignore-power-button.sh"
