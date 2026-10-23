@@ -17,7 +17,6 @@ return {
       'markdown_inline',
       'svelte',
       'graphql',
-      'bash',
       'lua',
       'vim',
       'dockerfile',

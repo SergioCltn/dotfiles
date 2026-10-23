@@ -23,7 +23,7 @@ vim.opt.timeoutlen = 300
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 
--- Configure tabs show to 4
+-- Indent with 2 spaces
 vim.o.tabstop = 2
 vim.o.expandtab = true
 vim.o.smartindent = true
