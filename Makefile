@@ -1,4 +1,4 @@
-.PHONY: install uninstall stow-config unstow-config stow-hyprland unstow-hyprland shell-setup help test-stow check
+.PHONY: install uninstall stow-config unstow-config stow-hyprland unstow-hyprland shell-setup help test-stow check sddm
 
 help:
 	@echo "Dotfiles Management"
@@ -9,6 +9,7 @@ help:
 	@echo "  make stow-config    - Stow config files (git, tmux, zsh, scripts, ghostty, starship, opencode, nvim)"
 	@echo "  make unstow-config  - Unstow config files only"
 	@echo "  make stow-hyprland  - Stow Hyprland configuration only"
+	@echo "  make sddm           - Install/refresh the SDDM login screen theme"
 	@echo "  make shell-setup    - Install TPM, oh-my-zsh, plugins, set zsh as default"
 	@echo "  make test-stow      - Test stow configurations for conflicts (dry-run)"
 	@echo "  make check          - Lint shell scripts, Lua and JSON configs"
@@ -41,6 +42,9 @@ stow-hyprland:
 
 unstow-hyprland:
 	stow -D hyprland
+
+sddm:
+	bash ./install/login/sddm.sh
 
 setup-hibernate:
 	./hyprland/.local/bin/hyprland-hibernate-setup

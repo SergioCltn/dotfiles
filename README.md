@@ -56,6 +56,31 @@ make stow-hyprland
 - symlinks everything under `hyprland/` into your home
 - sets up Hyprland, Waybar, mako, and the helper scripts in `~/.local/bin`
 
+### Login screen (SDDM)
+
+```bash path=null start=null
+make sddm
+```
+
+- disables autologin and installs the `silent-minimal` theme: blurred wallpaper and a
+  password field with only a cursor
+- the theme is built from `sddm-silent-theme` with the overrides in
+  `default/sddm/silent.conf.user`
+
+The login screen is **not** stowed: the greeter runs before login as the `sddm` user and
+can't read your home folder, so the theme and wallpaper are copied into
+`/usr/share/sddm/themes/silent-minimal`. Rerun `make sddm` whenever you:
+
+- edit `default/sddm/silent.conf.user`
+- change `hyprland/.config/hypr/wallpaper.jpg`
+- update the `sddm-silent-theme` package
+
+Changes show up at the next logout or reboot. To preview without logging out:
+
+```bash path=null start=null
+sddm-greeter-qt6 --test-mode --theme /usr/share/sddm/themes/silent-minimal
+```
+
 ### First-run setup
 
 ```bash path=null start=null
