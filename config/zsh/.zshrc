@@ -133,3 +133,6 @@ fi
 # export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
 # export ANDROID_HOME=$HOME/Android/Sdk
 # export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Local secrets (not tracked in dotfiles)
+[[ -r "$HOME/.config/opencode/secrets.env" ]] && source "$HOME/.config/opencode/secrets.env"

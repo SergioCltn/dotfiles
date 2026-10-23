@@ -29,8 +29,9 @@ make stow-config
 - covers git, tmux, zsh, scripts, ghostty, starship, opencode
 - replaces `~/.config/nvim` with the Neovim config from this repo
 
-The opencode config expects `STITCH_API_KEY` to be set in your environment for
-the Stitch MCP server.
+The opencode config expects `STITCH_API_KEY` and `WEALTHFOLIO_TOKEN` to be set
+in your environment (`.zshrc` sources `~/.config/opencode/secrets.env` if present) for
+the Stitch and Wealthfolio MCP servers.
 
 On an existing machine with unmanaged opencode files, move
 `~/.config/opencode/opencode.jsonc` and `~/.config/opencode/skills` aside before

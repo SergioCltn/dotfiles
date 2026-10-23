@@ -8,6 +8,25 @@
       "headers": {
         "X-Goog-Api-Key": "${STITCH_API_KEY}"
       }
+    },
+    "portfolio": {
+      "type": "remote",
+      "url": "http://portfolio.home.arpa/mcp",
+      "enabled": true
+    },
+    "servers": {
+      "ibkr": {
+        "type": "remote",
+        "url": "https://api.ibkr.com/v1/api/mcp-public"
+      },
+      "wealthfolio": {
+        "type": "remote",
+        "url": "http://127.0.0.1:8639/mcp",
+        "oauth": false,
+        "headers": {
+          "Authorization": "Bearer ${WEALTHFOLIO_TOKEN}"
+        }
+      }
     }
   }
 }
