@@ -11,6 +11,9 @@ sudo cp "$DOTFILES_PATH/default/sddm/theme.conf" /etc/sddm.conf.d/theme.conf
 # Build silent-minimal from the Silent theme so package updates don't undo the tweaks.
 # Rerun this script after updating sddm-silent-theme or changing the wallpaper.
 if [ -d "$SDDM_SOURCE_THEME" ]; then
+  # Earlier versions of this script customised the Silent theme in place
+  sudo rm -f "$SDDM_SOURCE_THEME/configs/default.conf.user" "$SDDM_SOURCE_THEME/backgrounds/dotfiles-wallpaper.jpg"
+
   sudo rm -rf "$SDDM_THEME_DIR"
   sudo cp -r "$SDDM_SOURCE_THEME" "$SDDM_THEME_DIR"
 
