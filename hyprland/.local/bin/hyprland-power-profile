@@ -7,10 +7,10 @@ case "$profile" in
     balanced) icon="" ;;
     power-saver) icon="" ;;
     *)
-        printf '%s\n' '{"text":"?","tooltip":"Power profiles daemon no disponible","class":"error"}'
+        printf '%s\n' '{"text":"?","tooltip":"Power profiles daemon unavailable","class":"error"}'
         exit 0
         ;;
 esac
 
-printf '{"text":"%s","tooltip":"Perfil: %s\\nClic para seleccionar otro perfil","class":"%s"}\n' \
+printf '{"text":"%s","tooltip":"Profile: %s\\nClick to choose another profile","class":"%s"}\n' \
     "$icon" "$profile" "$profile"

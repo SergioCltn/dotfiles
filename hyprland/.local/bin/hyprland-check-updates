@@ -8,13 +8,13 @@ cache_file="${XDG_RUNTIME_DIR:-/tmp}/hyprland-pending-updates.list"
 if [[ -r "$status_file" ]]; then
     status=$(<"$status_file")
     if [[ "$status" == "checking" || "$status" == "updating" ]]; then
-        printf '%s\n' '{"text":"↻","tooltip":"Actualizando paquetes...","class":"updating"}'
+        printf '%s\n' '{"text":"↻","tooltip":"Updating packages...","class":"updating"}'
         exit 0
     fi
 fi
 
 if ! command -v checkupdates >/dev/null 2>&1; then
-    printf '%s\n' '{"text":"","tooltip":"checkupdates no está instalado","class":"error"}'
+    printf '%s\n' '{"text":"","tooltip":"checkupdates is not installed","class":"error"}'
     exit 0
 fi
 
@@ -25,8 +25,8 @@ mv -f "$cache_tmp" "$cache_file"
 count=$(awk 'NF { count++ } END { print count + 0 }' <<< "$updates")
 
 if (( count > 0 )); then
-    printf '{"text":"󰏔 %d","tooltip":"%d actualizaciones disponibles","class":"pending"}\n' "$count" "$count"
+    printf '{"text":"󰏔 %d","tooltip":"%d updates available","class":"pending"}\n' "$count" "$count"
     exit 0
 fi
 
-printf '%s\n' '{"text":"","tooltip":"El sistema está actualizado","class":"up-to-date"}'
+printf '%s\n' '{"text":"","tooltip":"System is up to date","class":"up-to-date"}'

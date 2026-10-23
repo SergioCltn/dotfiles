@@ -161,7 +161,7 @@
   },
   "custom/appmenu": {
     "on-click-right": "~/.local/bin/hyprland-launch-keybinds",
-    "tooltip-format": "Clic: abrir aplicaciones\nClic derecho: ver atajos",
+    "tooltip-format": "Click: open apps\nRight-click: show keybindings",
     "on-click": "uwsm-app -- rofi -show drun",
     "format": "󰣇"
   },

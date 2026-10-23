@@ -4,7 +4,7 @@ configuration {
     icon-theme: "breeze-dark";
     terminal: "ghostty";
     drun-display-format: "{name}";
-    display-drun: "Aplicaciones";
+    display-drun: "Apps";
     matching: "fuzzy";
     sorting-method: "fzf";
     sort: true;
