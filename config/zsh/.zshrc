@@ -121,3 +121,15 @@ setopt hist_ignore_dups
 setopt hist_verify
 setopt hist_ignore_space
 setopt hist_reduce_blanks
+if [[ -d "$HOME/Android/Sdk" ]]; then
+  export ANDROID_SDK_ROOT="$HOME/Android/Sdk"
+  export ANDROID_AVD_HOME="$HOME/.config/.android/avd"
+  export PATH="$ANDROID_SDK_ROOT/cmdline-tools/latest/bin:$ANDROID_SDK_ROOT/platform-tools:$ANDROID_SDK_ROOT/emulator:$PATH"
+fi
+
+if [[ -d /usr/lib/jvm/java-26-openjdk ]]; then
+  export JAVA_HOME="/usr/lib/jvm/java-26-openjdk"
+fi
+# export JAVA_HOME=/usr/lib/jvm/java-21-openjdk
+# export ANDROID_HOME=$HOME/Android/Sdk
+# export PATH=$PATH:$ANDROID_HOME/platform-tools
