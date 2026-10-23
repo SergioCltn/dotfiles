@@ -8,8 +8,17 @@ cd "$(dirname "${BASH_SOURCE[0]}")/.." || exit 1
 
 failed=0
 
-pass() { echo "✓ $1"; }
-fail() { echo "✗ $1"; failed=1; }
+# run_check <label> <command...>: run a command and report pass/fail
+run_check() {
+  local label=$1
+  shift
+  if "$@"; then
+    echo "✓ $label"
+  else
+    echo "✗ $label"
+    failed=1
+  fi
+}
 
 # Shell scripts: anything with a sh/bash shebang, plus *.sh files
 mapfile -t scripts < <(
@@ -19,31 +28,36 @@ mapfile -t scripts < <(
   } | sed 's|^\./||' | sort -u
 )
 
-syntax_ok=1
-for script in "${scripts[@]}"; do
-  bash -n "$script" || syntax_ok=0
-done
-((syntax_ok)) && pass "bash -n (${#scripts[@]} scripts)" || fail "bash -n"
+# shellcheck disable=SC2329 # called via run_check
+bash_syntax() {
+  local script ok=0
+  for script in "$@"; do
+    bash -n "$script" || ok=1
+  done
+  return "$ok"
+}
+run_check "bash -n (${#scripts[@]} scripts)" bash_syntax "${scripts[@]}"
 
 if command -v shellcheck >/dev/null 2>&1; then
-  shellcheck -S warning -s bash "${scripts[@]}" && pass "shellcheck" || fail "shellcheck"
+  # SC1091: sourced files are resolved at runtime from $DOTFILES_INSTALL
+  run_check "shellcheck" shellcheck -S info -e SC1091 -s bash "${scripts[@]}"
 else
   echo "- shellcheck not installed, skipping"
 fi
 
 # Lua
-luac -p hyprland/.config/hypr/hyprland.lua && pass "hyprland.lua syntax" || fail "hyprland.lua syntax"
+run_check "hyprland.lua syntax" luac -p hyprland/.config/hypr/hyprland.lua
 
 stylua_bin=$(command -v stylua || echo "$HOME/.local/share/nvim/mason/bin/stylua")
 if [[ -x $stylua_bin ]]; then
-  "$stylua_bin" --check config/nvim/.config/nvim >/dev/null && pass "stylua (nvim)" || fail "stylua (nvim): run stylua config/nvim/.config/nvim"
+  run_check "stylua (nvim)" "$stylua_bin" --check config/nvim/.config/nvim
 else
   echo "- stylua not installed, skipping"
 fi
 
 # JSON
 for json in hyprland/.config/waybar/config config/opencode/.config/opencode/opencode.jsonc; do
-  python3 -m json.tool "$json" >/dev/null && pass "$json is valid JSON" || fail "$json is invalid JSON"
+  run_check "$json is valid JSON" python3 -m json.tool "$json" /dev/null
 done
 
 exit "$failed"

@@ -8,9 +8,9 @@
 
 chrootable_systemctl_enable() {
   if [ -n "${DOTFILES_CHROOT_INSTALL:-}" ]; then
-    sudo systemctl enable $1
+    sudo systemctl enable "$1"
   else
-    sudo systemctl enable --now $1
+    sudo systemctl enable --now "$1"
   fi
 }
 

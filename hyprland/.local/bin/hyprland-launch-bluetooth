@@ -3,4 +3,4 @@
 # Also attempts to unblock bluetooth service if rfkill had blocked it.
 
 rfkill unblock bluetooth
-exec $HOME/.local/bin/hyprland-launch-or-focus-tui bluetui
+exec "$HOME/.local/bin/hyprland-launch-or-focus-tui" bluetui

@@ -59,18 +59,18 @@ start_webcam_overlay() {
 
   # Try preferred 16:9 resolutions in order, use first available
   local preferred_resolutions=("640x360" "1280x720" "1920x1080")
-  local video_size_arg=""
+  local video_size_args=()
   local available_formats
   available_formats=$(v4l2-ctl --list-formats-ext -d "$WEBCAM_DEVICE" 2>/dev/null)
 
   for resolution in "${preferred_resolutions[@]}"; do
     if echo "$available_formats" | grep -q "$resolution"; then
-      video_size_arg="-video_size $resolution"
+      video_size_args=(-video_size "$resolution")
       break
     fi
   done
 
-  ffplay -f v4l2 $video_size_arg -framerate 30 "$WEBCAM_DEVICE" \
+  ffplay -f v4l2 "${video_size_args[@]}" -framerate 30 "$WEBCAM_DEVICE" \
     -vf "scale=${target_width}:-1" \
     -window_title "WebcamOverlay" \
     -noborder \
@@ -84,7 +84,7 @@ start_screenrecording() {
   local filename
   filename="$OUTPUT_DIR/screenrecording-$(date +'%Y-%m-%d_%H-%M-%S').mp4"
   local audio_devices=""
-  local audio_args=""
+  local audio_args=()
 
   [[ "$DESKTOP_AUDIO" == "true" ]] && audio_devices+="default_output"
 
@@ -94,9 +94,9 @@ start_screenrecording() {
     audio_devices+="default_input"
   fi
 
-  [[ -n "$audio_devices" ]] && audio_args+="-a $audio_devices"
+  [[ -n "$audio_devices" ]] && audio_args=(-a "$audio_devices")
 
-  gpu-screen-recorder -w portal -f 60 -fallback-cpu-encoding yes -o "$filename" $audio_args -ac aac &
+  gpu-screen-recorder -w portal -f 60 -fallback-cpu-encoding yes -o "$filename" "${audio_args[@]}" -ac aac &
   toggle_screenrecording_indicator
 }
 

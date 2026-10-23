@@ -7,8 +7,8 @@ start_log_output() {
   local ANSI_GRAY="\033[90m"
 
   # Save cursor position and hide cursor
-  printf $ANSI_SAVE_CURSOR
-  printf $ANSI_HIDE_CURSOR
+  printf '%b' "$ANSI_SAVE_CURSOR"
+  printf '%b' "$ANSI_HIDE_CURSOR"
 
   (
     local log_lines=20
@@ -46,8 +46,8 @@ start_log_output() {
 
 stop_log_output() {
   if [ -n "${monitor_pid:-}" ]; then
-    kill $monitor_pid 2>/dev/null || true
-    wait $monitor_pid 2>/dev/null || true
+    kill "$monitor_pid" 2>/dev/null || true
+    wait "$monitor_pid" 2>/dev/null || true
     unset monitor_pid
   fi
 }
