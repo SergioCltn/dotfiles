@@ -128,6 +128,7 @@ catch_errors() {
 # Exit handler - ensures cleanup happens on any exit
 exit_handler() {
   local exit_code=$?
+  stop_sudo_keepalive
   restore_mkinitcpio_hooks
 
   # Only run if we're exiting with an error and haven't already handled it

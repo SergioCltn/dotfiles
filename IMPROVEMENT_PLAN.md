@@ -24,8 +24,8 @@
 
 - [x] Avoid world-writable install logs.
   - Replace `chmod 666` in `install/helpers/logging.sh` with safer ownership and `600` or `644` permissions.
-- [ ] Make temporary sudoers permissions safer.
-  - Narrow `install/preflight/first-run-mode.sh` command aliases and ensure cleanup runs on failure.
+- [x] Make temporary sudoers permissions safer.
+  - Replaced the temporary NOPASSWD sudoers file with a sudo credential keepalive (`install/helpers/sudo.sh`).
 - [x] Review global Git `protocol.file.allow = always`.
   - Remove it or reduce it to a safer setting unless it is required globally.
 - [x] Make `remove_untracked_files` safer in `config/git/.githelpers`.
