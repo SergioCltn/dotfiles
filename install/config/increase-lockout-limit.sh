@@ -4,4 +4,6 @@ sudo sed -i 's|^\(auth\s\+\[default=die\]\s\+pam_faillock.so\)\s\+authfail.*$|\1
 
 # Ensure lockout limit is reset on restart
 sudo sed -i '/pam_faillock\.so preauth/d' /etc/pam.d/sddm-autologin
-sudo sed -i '/auth.*pam_permit\.so/a auth        required    pam_faillock.so authsucc' /etc/pam.d/sddm-autologin
+if ! grep -q 'pam_faillock\.so authsucc' /etc/pam.d/sddm-autologin; then
+  sudo sed -i '/auth.*pam_permit\.so/a auth        required    pam_faillock.so authsucc' /etc/pam.d/sddm-autologin
+fi
